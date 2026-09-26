@@ -1,0 +1,1647 @@
+<title>Valle Legal Drafting Desk</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@400;450;500&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>
+:root{
+  --paper:oklch(98.5% .005 85);
+  --surface:oklch(97.4% .007 85);
+  --sheet:oklch(100% 0 0);
+  --ink:oklch(22% .04 260);
+  --ink-soft:oklch(40% .028 258);
+  --muted:oklch(56% .018 258);
+  --faint:oklch(68% .014 258);
+  --brand:oklch(28% .055 258);
+  --brand-fg:oklch(98.5% .005 85);
+  --tint:oklch(96% .01 258);
+  --gold:oklch(70% .1 78);
+  --risk:oklch(52% .17 27);
+  --line:oklch(92% .008 258);
+  --line-soft:oklch(94.5% .006 258);
+  --line-strong:oklch(87% .012 258);
+  --hover:oklch(95.5% .009 258);
+  --sel:oklch(91.5% .017 258);
+  --ring:oklch(90% .02 258);
+  --well:oklch(96.5% .006 85);
+  --gold-wash:oklch(95.5% .035 82);
+  --sans:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  --serif:"Libre Baskerville",ui-serif,Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:oklch(19.5% .02 258);--surface:oklch(21.5% .02 258);--sheet:oklch(23.5% .02 258);
+    --ink:oklch(94% .008 85);--ink-soft:oklch(83% .012 258);--muted:oklch(68% .015 258);--faint:oklch(55% .015 258);
+    --brand:oklch(78% .06 258);--brand-fg:oklch(18% .03 258);--tint:oklch(24% .024 258);
+    --gold:oklch(80% .1 80);--risk:oklch(72% .15 27);
+    --line:oklch(29% .016 258);--line-soft:oklch(25.5% .014 258);
+    --line-strong:oklch(34% .02 258);--hover:oklch(25% .022 258);--sel:oklch(30% .03 258);--ring:oklch(28% .028 258);--well:oklch(17.5% .018 258);--gold-wash:oklch(28% .045 78);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:oklch(19.5% .02 258);--surface:oklch(21.5% .02 258);--sheet:oklch(23.5% .02 258);
+  --ink:oklch(94% .008 85);--ink-soft:oklch(83% .012 258);--muted:oklch(68% .015 258);--faint:oklch(55% .015 258);
+  --brand:oklch(78% .06 258);--brand-fg:oklch(18% .03 258);--tint:oklch(24% .024 258);
+  --gold:oklch(80% .1 80);--risk:oklch(72% .15 27);
+  --line:oklch(29% .016 258);--line-soft:oklch(25.5% .014 258);
+    --line-strong:oklch(34% .02 258);--hover:oklch(25% .022 258);--sel:oklch(30% .03 258);--ring:oklch(28% .028 258);--well:oklch(17.5% .018 258);--gold-wash:oklch(28% .045 78);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:none;padding:0;text-align:left}
+:focus-visible{outline:1.5px solid var(--gold);outline-offset:3px;border-radius:2px}
+h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance;letter-spacing:-.012em}
+p{margin:0}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:.92em}
+.eyebrow{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+.muted{color:var(--muted)}
+
+/* shell */
+.app{--rail-w:232px;display:grid;grid-template-columns:var(--rail-w) 1fr;height:100vh;min-height:620px;transition:grid-template-columns .18s ease}
+.app.collapsed{--rail-w:48px}
+.rail{background:var(--surface);border-right:1px solid var(--line);display:flex;flex-direction:column;padding:18px 0 20px;min-width:0;overflow:hidden}
+.rail-top{display:flex;align-items:center;gap:8px;padding:0 12px 0 18px;margin-bottom:6px;min-height:30px}
+.wordmark{display:block;width:112px;height:auto;flex:none}
+.monogram{display:none;font-family:var(--serif);font-size:13.5px;letter-spacing:.04em;color:var(--ink)}
+.collapsed .wordmark{display:none}
+.collapsed .monogram{display:block}
+.collapsed .rail-top{padding:0;justify-content:center}
+.collapse-btn{margin-left:auto;width:26px;height:26px;border-radius:6px;display:grid;place-items:center;color:var(--faint);flex:none}
+.collapse-btn:hover{background:var(--hover);color:var(--ink)}
+.collapse-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.7}
+.collapsed .collapse-btn{display:none}
+.rail-reopen{display:none}
+.collapsed .rail-reopen{display:grid;width:30px;height:28px;border-radius:7px;place-items:center;color:var(--faint);margin:4px auto 0}
+.collapsed .rail-reopen:hover{background:var(--hover);color:var(--ink)}
+.rail-reopen svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.7}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .wordmark{filter:invert(1) brightness(1.75) saturate(.4)}}
+:root[data-theme="dark"] .wordmark{filter:invert(1) brightness(1.75) saturate(.4)}
+:root[data-theme="light"] .wordmark{filter:none}
+.rail .eyebrow{margin:0 18px 24px}
+.collapsed .rail .eyebrow{display:none}
+.nav{display:flex;flex-direction:column;gap:2px;padding:0 10px}
+.collapsed .nav{padding:0 6px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:7px;color:var(--muted);font-weight:450;position:relative;white-space:nowrap}
+.collapsed .nav-item{padding:8px 0;justify-content:center;gap:0}
+.collapsed .nav-item .lb,.collapsed .nav-item .k{display:none}
+.nav-item svg{width:16px;height:16px;flex:none;stroke:currentColor;fill:none;stroke-width:1.6;opacity:.75}
+.nav-item .k{margin-left:auto;font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+.nav-item:hover{background:var(--hover);color:var(--ink)}
+.nav-item[aria-current="page"]{background:var(--sel);color:var(--ink);font-weight:500}
+.nav-item[aria-current="page"] svg{opacity:1;color:var(--gold)}
+.nav-item[aria-current="page"] .k{color:var(--muted)}
+.rail-spacer{flex:1}
+.who{margin:0 18px;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px;white-space:nowrap}
+.collapsed .who{margin:0 8px;text-align:center;padding-top:12px}
+.collapsed .who b,.collapsed .who span{display:none}
+.collapsed .who::after{content:"MV";font-family:var(--mono);font-size:11px;color:var(--muted)}
+.who b{display:block;font-weight:500;color:var(--ink-soft)}
+.who span{color:var(--faint);font-size:11.5px}
+
+.main{display:flex;flex-direction:column;min-width:0;min-height:0}
+.topbar{display:flex;align-items:baseline;gap:12px;padding:18px 32px 16px;flex:none}
+.topbar .mono{color:var(--faint)}
+.topbar h1{font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topbar .client{color:var(--faint);font-size:12.5px;white-space:nowrap}
+.topbar .sp{margin-left:auto;display:flex;align-items:center;gap:18px;flex:none}
+.tglass{display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-size:12.5px;padding:5px 11px;border-radius:7px;border:1px solid var(--line)}
+.tglass:hover{color:var(--ink);background:var(--hover)}
+.tglass svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.6}
+
+.view{display:none;flex:1;min-height:0;overflow:auto}
+.view.active{display:flex}
+.view.pad{flex-direction:column;padding:6px 32px 64px;gap:34px;max-width:1140px}
+.vh h2{font-size:22px}
+.vh p{color:var(--muted);font-size:13px;max-width:60ch;margin-top:7px}
+.vh{display:flex;align-items:flex-end;gap:20px;flex-wrap:wrap}
+.vh .link{margin-left:auto}
+.link{color:var(--ink-soft);font-size:12.5px;border-bottom:1px solid var(--line);padding-bottom:1px;white-space:nowrap}
+.link:hover{color:var(--ink);border-color:var(--gold)}
+.link.quiet{color:var(--muted);border-color:transparent}
+.link.quiet:hover{border-color:var(--line)}
+
+/* ---------- chat ---------- */
+#view-draft{display:none;min-height:0}
+#view-draft.active{display:flex}
+.thread-col{display:flex;flex-direction:column;min-height:0;width:var(--chat-w,440px);flex:none;min-width:320px}
+.splitter{flex:none;width:9px;cursor:col-resize;position:relative;background:none}
+.splitter::before{content:"";position:absolute;inset:0 4px;background:var(--line);transition:background .14s}
+.splitter:hover::before,.splitter.drag::before{background:var(--gold);inset:0 3.5px}
+body.resizing{cursor:col-resize;user-select:none}
+.thread{flex:1;overflow:auto;padding:24px 26px 28px;display:flex;flex-direction:column;gap:26px;scroll-behavior:smooth}
+.turn{display:flex;flex-direction:column;font-size:14px;line-height:1.68}
+.turn.user{align-items:flex-end}
+.turn.user .bubble{background:var(--sel);border-radius:14px 14px 4px 14px;padding:11px 15px;max-width:92%;color:var(--ink)}
+.turn.ai{gap:10px}
+.turn.ai .bubble{color:var(--ink-soft);display:flex;flex-direction:column;gap:14px}
+.turn.ai .bubble p{margin:0}
+.turn.ai b{color:var(--ink);font-weight:500}
+.ai-head{display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+.spark{width:16px;height:16px;flex:none;color:var(--gold)}
+.spark svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5}
+
+/* thinking disclosure */
+.think{border:1px solid var(--line);border-radius:9px;background:var(--surface);font-size:12.5px;overflow:hidden}
+.think>summary{list-style:none;cursor:pointer;padding:9px 12px;color:var(--muted);display:flex;align-items:center;gap:9px}
+.think>summary::-webkit-details-marker{display:none}
+.think>summary:hover{color:var(--ink)}
+.think>summary .chev{margin-left:auto;transition:transform .16s;color:var(--faint)}
+.think[open]>summary .chev{transform:rotate(90deg)}
+.think .tick{color:var(--gold);flex:none}
+.think-body{padding:2px 12px 10px}
+.think.live{display:flex;align-items:center;gap:9px;padding:9px 12px;color:var(--muted)}
+.shimmer{background:linear-gradient(90deg,var(--muted) 0%,var(--ink) 45%,var(--muted) 90%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 1.6s linear infinite}
+@keyframes sh{0%{background-position:120% 0}100%{background-position:-40% 0}}
+.src-list{display:flex;flex-direction:column}
+.src{display:flex;align-items:baseline;gap:10px;padding:6px 0;border-top:1px solid var(--line-soft);font-size:12.5px;width:100%}
+.src:first-child{border-top:none}
+.src .badge{font-family:var(--mono);font-size:10px;color:var(--faint);flex:none;width:58px}
+.src .t{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink-soft)}
+.src:hover .t{color:var(--ink)}
+.src .loc{font-family:var(--mono);font-size:10.5px;color:var(--faint);flex:none}
+.inserted-note{display:flex;gap:10px;align-items:flex-start;font-size:12.5px;color:var(--muted);border-left:2px solid var(--gold);padding-left:12px}
+.opts{display:flex;flex-direction:column;gap:14px}
+.opt .oh{font-size:13.5px;color:var(--ink);font-weight:500;display:flex;gap:10px;align-items:baseline}
+.opt .oh em{font-style:normal;font-size:11px;color:var(--faint);letter-spacing:.06em;text-transform:uppercase}
+.opt p{font-size:13px;color:var(--muted);margin-top:3px}
+.caret{display:inline-block;width:7px;height:14px;background:var(--gold);vertical-align:-2px;margin-left:2px;animation:bk 1s steps(2) infinite}
+@keyframes bk{50%{opacity:0}}
+.turn-acts{display:flex;gap:4px;opacity:0;transition:opacity .14s}
+.turn.ai:hover .turn-acts,.turn-acts:focus-within{opacity:1}
+.turn-acts button{font-size:11.5px;color:var(--faint);padding:3px 8px;border-radius:5px}
+.turn-acts button:hover{color:var(--ink);background:var(--hover)}
+
+/* composer */
+.composer{padding:14px 26px 20px;display:flex;flex-direction:column;gap:12px;flex:none}
+.composer-box{border:1px solid var(--line-strong);border-radius:14px;background:var(--sheet);display:flex;flex-direction:column;overflow:hidden;transition:border-color .14s,box-shadow .14s}
+.composer-box:focus-within{border-color:var(--faint);box-shadow:0 0 0 3px var(--ring)}
+.composer textarea{border:none;background:none;resize:none;padding:13px 15px 4px;font-size:14px;line-height:1.6;min-height:46px;max-height:180px;outline:none;overflow-y:auto}
+.composer textarea::placeholder{color:var(--faint)}
+.composer-bar{display:flex;align-items:center;gap:7px;padding:6px 8px 8px 9px}
+.cbtn{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);padding:5px 9px;border-radius:7px;border:1px solid transparent}
+.cbtn:hover{background:var(--hover);color:var(--ink)}
+.cbtn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.7}
+.cbtn.scope{border-color:var(--line);font-family:var(--mono);font-size:11px}
+.send{margin-left:auto;width:30px;height:30px;border-radius:50%;background:var(--brand);color:var(--brand-fg);display:grid;place-items:center;flex:none;transition:opacity .14s,background .14s}
+.send svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
+.send:disabled{opacity:.3;cursor:not-allowed}
+.send:not(:disabled):hover{filter:brightness(1.18)}
+.send.stop svg{fill:currentColor;stroke:none}
+.suggests{display:flex;flex-wrap:wrap;gap:6px}
+.sug{font-size:12.5px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:5px 11px}
+.sug:hover{color:var(--ink);border-color:var(--faint);background:var(--hover)}
+/* ---------- document pane ---------- */
+.doc-col{display:flex;flex-direction:column;min-height:0;min-width:0;flex:1}
+.app.fs .doc-col{position:fixed;inset:0;z-index:70;background:var(--paper)}
+.app.fs .rail,.app.fs .topbar,.app.fs .thread-col,.app.fs .splitter{display:none}
+
+.doc-head{display:flex;align-items:center;gap:12px;padding:9px 16px;flex:none;border-bottom:1px solid var(--line);min-width:0}
+.doc-head .id{display:flex;flex-direction:column;gap:1px;min-width:0;flex:1}
+.doc-head h3{font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.doc-head .meta{font-size:11px;color:var(--faint);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.modes{display:flex;gap:2px;padding:2px;background:var(--tint);border-radius:8px;flex:none}
+.mode{padding:5px 12px;border-radius:6px;font-size:12.5px;color:var(--muted);white-space:nowrap}
+.mode:hover{color:var(--ink)}
+.mode[aria-pressed="true"]{background:var(--sheet);color:var(--ink);font-weight:500;box-shadow:0 1px 2px oklch(22% .04 260/.08)}
+:root[data-theme="dark"] .mode[aria-pressed="true"]{box-shadow:none;background:var(--sel)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .mode[aria-pressed="true"]{box-shadow:none;background:var(--sel)}}
+.icon-btn{width:30px;height:28px;border-radius:7px;display:grid;place-items:center;color:var(--muted);flex:none}
+.icon-btn:hover{background:var(--hover);color:var(--ink)}
+.icon-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.7}
+
+.toolbar{display:flex;align-items:center;gap:2px;padding:6px 16px;border-bottom:1px solid var(--line);flex:none;background:var(--surface);min-width:0}
+.tb{min-width:28px;height:26px;padding:0 6px;border-radius:6px;display:grid;place-items:center;color:var(--muted);font-size:13px;flex:none}
+.tb:hover{background:var(--hover);color:var(--ink)}
+.tb.on{background:var(--sel);color:var(--ink)}
+.tb svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.7}
+.tb b{font-weight:700}.tb i{font-style:italic;font-family:var(--serif)}.tb u{text-underline-offset:2px}
+.tb-sep{width:1px;height:16px;background:var(--line);margin:0 6px;flex:none}
+.tb-sel{height:26px;border:1px solid transparent;border-radius:6px;background:none;color:var(--ink-soft);font-size:12.5px;padding:0 5px;cursor:pointer;outline:none;flex:none}
+.tb-sel:hover{background:var(--hover)}
+.tb-grp{display:flex;align-items:center;gap:2px;min-width:0;overflow-x:auto;scrollbar-width:none}
+.tb-grp::-webkit-scrollbar{display:none}
+.tb-right{margin-left:auto;display:flex;align-items:center;gap:4px;flex:none;padding-left:10px}
+.dbtn{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);padding:5px 10px;border-radius:7px;border:1px solid transparent;white-space:nowrap;flex:none}
+.dbtn:hover{background:var(--hover);color:var(--ink)}
+.dbtn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.7}
+.dbtn.solid{background:var(--brand);color:var(--brand-fg);border-color:var(--brand)}
+.dbtn.solid:hover{filter:brightness(1.15)}
+.dbtn.outline{border-color:var(--line-strong)}
+
+/* scroll + zoom frame */
+.doc-body{flex:1;min-height:0;display:flex}
+.doc-scroll{flex:1;overflow:auto;background:var(--well);padding:26px 0 60px;min-width:0}
+.zoom-frame{margin:0 auto;position:relative}
+.zoom-layer{width:816px;transform-origin:top left;display:flex;flex-direction:column;align-items:center;gap:26px}
+
+/* the page */
+.page{width:816px;min-height:1056px;background:var(--sheet);border:1px solid var(--line);
+  box-shadow:0 1px 2px oklch(22% .04 260/.07),0 12px 34px oklch(22% .04 260/.08);
+  padding:96px;font-family:var(--serif);font-size:13.5px;line-height:1.85;color:var(--ink);outline:none;flex:none}
+:root[data-theme="dark"] .page{box-shadow:0 1px 2px oklch(0% 0 0/.35),0 14px 36px oklch(0% 0 0/.32)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .page{box-shadow:0 1px 2px oklch(0% 0 0/.35),0 14px 36px oklch(0% 0 0/.32)}}
+.page.sheetview{height:1056px;min-height:1056px;overflow:hidden;position:relative;padding-bottom:70px}
+.pv-num{position:absolute;left:96px;right:96px;bottom:44px;text-align:center;font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+.page ::selection{background:oklch(85% .07 78)}
+.privilege{font-family:var(--sans);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-bottom:42px}
+.page h1{font-size:19px;text-align:center;line-height:1.45;margin:0}
+.page h2{font-size:16px;margin:26px 0 10px}
+.page .subtitle{text-align:center;font-size:11.5px;font-family:var(--sans);color:var(--faint);margin-top:10px;letter-spacing:.02em}
+.page .rule{height:1px;background:var(--line);margin:30px 0}
+.page ul,.page ol{margin:10px 0 10px 4px;padding-left:24px}
+.page li{margin-bottom:5px}
+.clause{margin-bottom:26px}
+.clause h4{font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 11px}
+.clause h4 .n{font-family:var(--mono);color:var(--faint);margin-right:10px;letter-spacing:0}
+.sub{padding-left:34px;position:relative;margin-bottom:10px;border-radius:3px}
+.sub:last-child{margin-bottom:0}
+.sub .l{position:absolute;left:0;font-family:var(--mono);font-size:11px;color:var(--faint);top:.35em}
+.sub p{text-align:justify;hyphens:auto;margin:0}
+.cit{font-family:var(--mono);font-size:9.5px;vertical-align:super;line-height:0;color:var(--gold);margin-left:3px;cursor:pointer;user-select:none}
+.cit:hover{color:var(--ink)}
+.pending{border-left:2px solid var(--gold);padding-left:20px;margin:0 0 26px -22px}
+.pending.settled{border-left-color:transparent}
+.pending-bar{display:flex;align-items:baseline;gap:16px;font-family:var(--sans);font-size:11.5px;color:var(--muted);margin-bottom:14px;flex-wrap:wrap;user-select:none}
+.pending-bar .sp{margin-left:auto;display:flex;gap:16px}
+.pending.settled .pending-bar{display:none}
+.sig{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:46px;padding-top:30px;border-top:1px solid var(--line)}
+.sig .line{border-bottom:1px solid var(--line);height:32px;margin-bottom:8px}
+.sig .who-l{font-family:var(--sans);font-size:11px;color:var(--faint)}
+
+/* mode-specific */
+.mode-preview .cit,.mode-preview .pending-bar{display:none}
+.mode-preview .pending{border-left-color:transparent;padding-left:0;margin-left:0}
+.mode-sources .pending-bar{display:none}
+.sub.traced{cursor:pointer}
+.sub.traced:hover{background:var(--hover)}
+.sub.lit{background:var(--gold-wash);box-shadow:-6px 0 0 var(--gold-wash),6px 0 0 var(--gold-wash)}
+
+/* sources panel */
+.src-panel{width:326px;flex:none;border-left:1px solid var(--line);display:none;flex-direction:column;min-height:0;background:var(--surface)}
+.mode-sources .src-panel{display:flex}
+.doc-body.narrow{flex-direction:column}
+.doc-body.narrow .src-panel{width:auto;flex:none;max-height:46%;border-left:none;border-top:1px solid var(--line)}
+.doc-body.narrow .doc-scroll{padding-top:18px}
+.src-panel header{padding:12px 16px 10px;border-bottom:1px solid var(--line)}
+.src-panel header h4{font-family:var(--sans);font-size:12.5px;font-weight:500;margin:0;color:var(--ink)}
+.src-panel header p{font-size:11px;color:var(--faint);margin-top:4px;line-height:1.5}
+.prov{flex:1;overflow:auto;padding:6px 0 26px}
+.prov-item{padding:12px 16px;border-bottom:1px solid var(--line-soft);cursor:pointer;display:flex;flex-direction:column;gap:7px}
+.prov-item:hover{background:var(--hover)}
+.prov-item.lit{background:var(--gold-wash)}
+.prov-head{display:flex;align-items:baseline;gap:9px}
+.prov-head .cl{font-family:var(--mono);font-size:10.5px;color:var(--gold);flex:none}
+.prov-head .ti{font-size:12px;color:var(--ink);line-height:1.4;font-weight:500}
+.prov-src{display:flex;flex-direction:column;gap:4px;border-left:2px solid var(--line-strong);padding-left:11px}
+.prov-item.lit .prov-src{border-left-color:var(--gold)}
+.prov-src .sh{display:flex;align-items:baseline;gap:7px;font-size:11px}
+.prov-src .sh .badge{font-family:var(--mono);font-size:9.5px;color:var(--faint);flex:none}
+.prov-src .sh .nm{color:var(--ink-soft);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.prov-src .sh .lc{font-family:var(--mono);font-size:10px;color:var(--faint);flex:none}
+.prov-src q{font-family:var(--serif);font-size:10.5px;line-height:1.75;color:var(--muted);quotes:none;display:block}
+.prov-none{font-size:11px;color:var(--faint);border-left:2px solid var(--line-strong);padding-left:11px;line-height:1.55}
+
+.doc-foot{display:flex;align-items:center;gap:16px;padding:6px 16px;border-top:1px solid var(--line);font-size:11.5px;color:var(--faint);flex:none;background:var(--surface)}
+.doc-foot .dirty{color:var(--gold)}
+.doc-foot .right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.zoom-sel{height:24px;border:1px solid var(--line);border-radius:6px;background:var(--sheet);color:var(--muted);font-size:11.5px;padding:0 5px;cursor:pointer;outline:none;font-family:var(--mono)}
+.zoom-sel:hover{color:var(--ink)}
+
+.pop{position:fixed;z-index:80;width:320px;background:var(--sheet);border:1px solid var(--line);border-radius:6px;box-shadow:0 12px 34px oklch(22% .04 260/.12);padding:16px 18px;font-family:var(--sans);display:none;flex-direction:column;gap:10px}
+:root[data-theme="dark"] .pop{box-shadow:0 12px 34px oklch(0% 0 0/.4)}
+.pop.open{display:flex}
+.pop h5{font-family:var(--sans);font-size:12.5px;font-weight:500;margin:0;color:var(--ink)}
+.pop .q{font-family:var(--serif);font-size:12.5px;line-height:1.8;color:var(--muted);border-left:2px solid var(--gold);padding-left:13px}
+.pop .r{font-size:11.5px;color:var(--faint)}
+.pop .acts{display:flex;gap:16px;padding-top:2px}
+
+/* stats + tables */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1px;background:var(--line);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.stat{background:var(--paper);padding:18px 22px 18px 0;display:flex;flex-direction:column;gap:5px}
+.stat:not(:first-child){padding-left:22px}
+.stat .n{font-family:var(--serif);font-size:26px;line-height:1;font-variant-numeric:tabular-nums}
+.stat .k{font-size:12.5px;color:var(--ink-soft)}
+.stat .s{font-size:11.5px;color:var(--faint)}
+.sec{display:flex;flex-direction:column;gap:14px}
+.sec-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.sec-head h3{font-size:15px}
+.filters{display:flex;gap:4px;margin-left:auto}
+.filt{font-size:12.5px;color:var(--muted);padding:4px 11px;border-radius:999px;border:1px solid transparent}
+.filt[aria-pressed="true"]{color:var(--ink);background:var(--sel);font-weight:500}
+.filt:hover:not([aria-pressed="true"]){color:var(--ink);background:var(--hover)}
+.search{display:flex;align-items:center;border:1px solid var(--line);border-radius:7px;padding:5px 11px;min-width:210px;background:var(--sheet)}
+.search:focus-within{border-color:var(--faint)}
+.search input{border:none;background:none;outline:none;font-size:12.5px;width:100%}
+.search input::placeholder{color:var(--faint)}
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead th{text-align:left;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);font-weight:400;padding:0 22px 9px 0;border-bottom:1px solid var(--line);white-space:nowrap}
+tbody td{padding:13px 22px 13px 0;border-bottom:1px solid var(--line-soft);vertical-align:baseline;color:var(--muted)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{color:var(--ink-soft)}
+tbody tr[hidden]{display:none}
+td .name{color:var(--ink);font-weight:450}
+tbody tr:hover td .name{color:var(--ink)}
+td .sub2{font-size:11.5px;color:var(--faint);margin-top:3px}
+td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap;font-size:12px}
+td.st{white-space:nowrap}
+.st .risk{color:var(--risk)}
+.st .gold{color:oklch(48% .08 70)}
+:root[data-theme="dark"] .st .gold{color:var(--gold)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .st .gold{color:var(--gold)}}
+
+/* clause list */
+.clist{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.crow{display:grid;grid-template-columns:96px minmax(220px,1fr) minmax(0,1.5fr) 150px;gap:24px;padding:18px 0;border-bottom:1px solid var(--line-soft);align-items:baseline}
+.crow .code{font-family:var(--mono);font-size:11px;color:var(--faint)}
+.crow h4{font-family:var(--sans);font-size:13px;font-weight:450;color:var(--ink);line-height:1.45;margin:0}
+.crow .body{font-family:var(--serif);font-size:12.5px;line-height:1.75;color:var(--muted)}
+.crow .meta{font-size:11.5px;color:var(--faint);line-height:1.7}
+.crow .meta b{display:block;font-weight:400;color:var(--muted)}
+
+/* connections */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.conn h3{font-size:15px;margin-bottom:3px}
+.conn .state{font-size:11.5px;color:var(--muted);margin-bottom:20px}
+.conn .state i{font-style:normal;display:inline-block;width:5px;height:5px;border-radius:50%;background:oklch(58% .12 155);margin-right:7px;vertical-align:1px}
+:root[data-theme="dark"] .conn .state i{background:oklch(74% .13 155)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .conn .state i{background:oklch(74% .13 155)}}
+.kv{display:grid;grid-template-columns:104px 1fr;gap:10px 18px;font-size:12.5px;margin:0 0 22px}
+.kv dt{color:var(--faint)}
+.kv dd{margin:0;color:var(--ink-soft);word-break:break-word}
+.log{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.log-row{display:flex;gap:14px;padding:9px 0;border-bottom:1px solid var(--line-soft);font-size:12px;color:var(--muted)}
+.log-row .when{font-family:var(--mono);font-size:11px;color:var(--faint);flex:none;width:40px}
+.conn-foot{display:flex;gap:18px;align-items:baseline;padding-top:16px}
+.conn-foot .mono{margin-left:auto;font-size:11px;color:var(--faint)}
+.note{font-size:12.5px;color:var(--muted);line-height:1.7;max-width:78ch;border-top:1px solid var(--line);padding-top:16px}
+.note b{color:var(--ink-soft);font-weight:500}
+
+.toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(10px);background:var(--brand);color:var(--brand-fg);padding:8px 16px;border-radius:5px;font-size:12.5px;opacity:0;pointer-events:none;transition:opacity .16s,transform .16s;z-index:80}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.typing{color:var(--faint)}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+@media (max-width:1180px){
+  .app{grid-template-columns:190px 1fr}
+  #view-draft.active{grid-template-columns:minmax(330px,380px) 1fr}
+  .doc-scroll{padding:34px 28px 70px}
+  .two{grid-template-columns:1fr;gap:44px}
+  .crow{grid-template-columns:88px 1fr;gap:10px 20px}
+  .crow .body,.crow .meta{grid-column:2}
+}
+@media (max-width:920px){
+  .app{grid-template-columns:1fr;height:auto}
+  .rail{flex-direction:row;align-items:center;flex-wrap:wrap;gap:8px 20px;padding:14px 20px;border-right:none;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40;background:var(--surface)}
+  .wordmark{margin:0}
+  .rail .eyebrow,.rail-spacer,.who{display:none}
+  .nav{flex-direction:row;flex-wrap:wrap;gap:16px}
+  .nav-item{padding:0}
+  .nav-item[aria-current="page"]::before{display:none}
+  .nav-item[aria-current="page"]{border-bottom:1px solid var(--gold)}
+  #view-draft.active{grid-template-columns:1fr}
+  .thread-col{border-right:none;border-bottom:1px solid var(--line)}
+  .thread{max-height:480px;padding:12px 20px 20px}
+  .composer{padding:14px 20px 18px}
+  .view{overflow:visible}
+  .view.pad{padding:6px 20px 48px}
+  .topbar{padding:14px 20px;flex-wrap:wrap}
+  .doc-head{padding:12px 20px}
+  .doc-scroll{padding:26px 20px 50px}
+}
+</style>
+<div class="app" id="app">
+  <aside class="rail">
+    <div class="rail-top">
+      <img class="wordmark" src="data:image/png;base64,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" alt="Valle Legal">
+      <span class="monogram">VL</span>
+      <button class="collapse-btn" id="collapse" title="Collapse sidebar" aria-label="Collapse sidebar">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></svg>
+      </button>
+    </div>
+    <button class="rail-reopen" id="reopen" title="Expand sidebar" aria-label="Expand sidebar">
+      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></svg>
+    </button>
+    <div class="eyebrow">Drafting Desk</div>
+    <nav class="nav" aria-label="Sections">
+      <button class="nav-item" data-view="draft" aria-current="page" title="Drafting">
+        <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg><span class="lb">Drafting</span><span class="k">3</span>
+      </button>
+      <button class="nav-item" data-view="docs" title="Documents">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6"/></svg><span class="lb">Documents</span><span class="k">37</span>
+      </button>
+      <button class="nav-item" data-view="kb" title="Knowledge base">
+        <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg><span class="lb">Knowledge base</span><span class="k">1,482</span>
+      </button>
+      <button class="nav-item" data-view="matters" title="Matters">
+        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg><span class="lb">Matters</span><span class="k">42</span>
+      </button>
+      <button class="nav-item" data-view="clauses" title="Clause bank">
+        <svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg><span class="lb">Clause bank</span><span class="k">216</span>
+      </button>
+      <button class="nav-item" data-view="conn" title="Connections">
+        <svg viewBox="0 0 24 24"><path d="M9 2v6M15 2v6"/><path d="M6 8h12v3a6 6 0 0 1-12 0V8Z"/><path d="M12 17v5"/></svg><span class="lb">Connections</span>
+      </button>
+    </nav>
+    <div class="rail-spacer"></div>
+    <div class="who"><b>Marisol Valle</b><span>Partner</span></div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <span class="mono">2026-0188</span>
+      <h1>Keynote Engagement — Cascade Health Summit</h1>
+      <span class="client">Whitfield Speaks LLC</span>
+      <span class="sp"><button class="tglass" id="theme-toggle"><span id="theme-icon"></span><span id="theme-label">Dark mode</span></button></span>
+    </div>
+
+    <section class="view active" id="view-draft">
+      <div class="thread-col">
+        <div class="thread" id="thread">
+
+          <div class="turn user">
+            <div class="bubble">Draft the recording and likeness section. Rebecca keeps every right in the keynote capture; the summit gets an internal replay window only, 90 days, no public posting. Match how we did it for the Northwind engagement.</div>
+          </div>
+
+          <div class="turn ai">
+            <div class="ai-head"><span class="spark"><svg viewBox="0 0 24 24"><path d="M12 2.5 13.8 9a4 4 0 0 0 2.7 2.7l6.5 1.8-6.5 1.8a4 4 0 0 0-2.7 2.7L12 24.5 10.2 18a4 4 0 0 0-2.7-2.7L1 13.5l6.5-1.8A4 4 0 0 0 10.2 9Z" transform="translate(0 -1) scale(.95) translate(.6 .6)"/></svg></span>Drafting assistant</div>
+            <div class="bubble">
+              <details class="think">
+                <summary><span class="tick">✦</span> Searched 1,482 documents · 4 passages from 3 sources <span class="chev">›</span></summary>
+                <div class="think-body">
+                  <div class="src-list">
+                    <button class="src" data-cit="c1"><span class="badge">SharePt</span><span class="t">Northwind Summit — Speaking Agreement (executed)</span><span class="loc">§ 8.1–8.4</span></button>
+                    <button class="src" data-cit="c2"><span class="badge">Clause</span><span class="t">Recording and likeness — speaker-retained, replay carve-out</span><span class="loc">VL-REC-04</span></button>
+                    <button class="src" data-cit="c3"><span class="badge">Clio</span><span class="t">Whitfield — Standard Engagement Rider 2026</span><span class="loc">¶ 6</span></button>
+                  </div>
+                </div>
+              </details>
+              <p>Northwind kept all capture rights with the speaker and gave the host a defined internal window with a destruction obligation at the end of it. I have used that shape, tightened to 90 days, and added the no-public-distribution covenant Rebecca&rsquo;s rider already requires.</p>
+              <div class="inserted-note"><span>Inserted § 7 into the draft, pending your review.</span></div>
+            </div>
+            <div class="turn-acts"><button data-toast="Response copied.">Copy</button><button data-toast="Re-running against the same sources.">Retry</button></div>
+          </div>
+
+          <div class="turn user">
+            <div class="bubble">The summit came back. They want to post a three-minute clip publicly for next year&rsquo;s promotion. What are our options?</div>
+          </div>
+
+          <div class="turn ai">
+            <div class="ai-head"><span class="spark"><svg viewBox="0 0 24 24"><path d="M12 2.5 13.8 9a4 4 0 0 0 2.7 2.7l6.5 1.8-6.5 1.8a4 4 0 0 0-2.7 2.7L12 24.5 10.2 18a4 4 0 0 0-2.7-2.7L1 13.5l6.5-1.8A4 4 0 0 0 10.2 9Z" transform="translate(0 -1) scale(.95) translate(.6 .6)"/></svg></span>Drafting assistant</div>
+            <div class="bubble">
+              <p>Three ways to give them a clip without opening the capture, ordered by how much Rebecca keeps.</p>
+              <div class="opts">
+                <div class="opt">
+                  <div class="oh">Speaker-approved excerpt <em>Lowest exposure</em></div>
+                  <p>Host may publish one excerpt up to 3:00, drawn from footage Rebecca designates, subject to written approval before release. Promotion of the summit only.</p>
+                </div>
+                <div class="opt">
+                  <div class="oh">Licensed promotional clip <em>Negotiable</em></div>
+                  <p>A term-limited, revocable licence — 12 months, summit channels only, attribution required, no sponsor adjacency. Priced into the fee.</p>
+                </div>
+                <div class="opt">
+                  <div class="oh">Host-cut clip with takedown <em>Not recommended</em></div>
+                  <p>Host cuts it themselves with a 48-hour takedown right. You lose approval before first publication, which is where the reputational risk actually sits.</p>
+                </div>
+              </div>
+              <p>Say which one and I will draft it as § 7.5 with the matching definition updates in § 1.</p>
+            </div>
+            <div class="turn-acts"><button data-toast="Response copied.">Copy</button><button data-toast="Re-running against the same sources.">Retry</button></div>
+          </div>
+        </div>
+
+        <div class="composer">
+          <div class="composer-box">
+            <textarea id="input" rows="1" placeholder="Reply to the drafting assistant…"></textarea>
+            <div class="composer-bar">
+              <button class="cbtn" data-toast="Attach a document to this matter."><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+              <button class="cbtn scope" data-toast="Retrieval is scoped to matter 2026-0188, firm precedents and the clause bank.">2026-0188 · 14 sources</button>
+              <button class="send" id="send" aria-label="Send" disabled><svg viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
+            </div>
+          </div>
+          <div class="suggests" id="suggests">
+            <button class="sug" data-q="opt1">Draft option 1 as § 7.5</button>
+            <button class="sug" data-q="compare">Compare against our last five agreements</button>
+            <button class="sug" data-q="risk">Flag counterparty pushback</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="splitter" id="splitter" role="separator" aria-orientation="vertical" tabindex="0" aria-label="Resize panes"></div>
+
+      <div class="doc-col" id="doc-col">
+        <div class="doc-head">
+          <div class="id">
+            <h3 id="doc-name">Speaking Engagement Agreement — Cascade Health Summit</h3>
+            <div class="meta"><span class="mono">v3</span> · <span id="doc-status">1 insertion awaiting review</span> · matter 2026-0188</div>
+          </div>
+          <div class="modes" id="modes" role="group" aria-label="Document view">
+            <button class="mode" data-mode="edit" aria-pressed="true">Edit</button>
+            <button class="mode" data-mode="preview" aria-pressed="false">Preview</button>
+            <button class="mode" data-mode="sources" aria-pressed="false">Sources</button>
+          </div>
+          <button class="icon-btn" id="fullscreen" title="Full screen (F)" aria-label="Full screen">
+            <svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+          </button>
+        </div>
+
+        <div class="toolbar" id="toolbar">
+          <div class="tb-grp" id="edit-tools">
+            <button class="tb" data-cmd="undo" title="Undo"><svg viewBox="0 0 24 24"><path d="M3 10h11a5 5 0 0 1 0 10h-3"/><path d="M7 6 3 10l4 4"/></svg></button>
+            <button class="tb" data-cmd="redo" title="Redo"><svg viewBox="0 0 24 24"><path d="M21 10H10a5 5 0 0 0 0 10h3"/><path d="m17 6 4 4-4 4"/></svg></button>
+            <span class="tb-sep"></span>
+            <select class="tb-sel" id="block-style" title="Paragraph style">
+              <option value="p">Body text</option>
+              <option value="h2">Section heading</option>
+              <option value="h1">Document title</option>
+            </select>
+            <span class="tb-sep"></span>
+            <button class="tb" data-cmd="bold" title="Bold"><b>B</b></button>
+            <button class="tb" data-cmd="italic" title="Italic"><i>I</i></button>
+            <button class="tb" data-cmd="underline" title="Underline"><u>U</u></button>
+            <span class="tb-sep"></span>
+            <button class="tb" data-cmd="insertUnorderedList" title="Bulleted list"><svg viewBox="0 0 24 24"><path d="M9 6h12M9 12h12M9 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg></button>
+            <button class="tb" data-cmd="insertOrderedList" title="Numbered list"><svg viewBox="0 0 24 24"><path d="M10 6h11M10 12h11M10 18h11M4 4v4M3 8h2M3 12h2l-2 3h2"/></svg></button>
+            <span class="tb-sep"></span>
+            <button class="tb" data-cmd="justifyLeft" title="Align left"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h12M3 18h16"/></svg></button>
+            <button class="tb" data-cmd="justifyFull" title="Justify"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+            <span class="tb-sep"></span>
+            <button class="tb" id="insert-clause" title="Insert from clause bank"><span class="lbl">Insert clause</span></button>
+          </div>
+          <div class="tb-grp" id="view-note" hidden>
+            <span style="font-size:12px;color:var(--faint);padding:0 4px" id="view-note-text"></span>
+          </div>
+          <div class="tb-right">
+            <button class="dbtn" id="copy-doc"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>Copy</button>
+            <button class="dbtn" id="download-doc"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 11l5 5 5-5"/><path d="M4 21h16"/></svg>Download</button>
+            <button class="dbtn outline" id="save-doc">Save</button>
+            <button class="dbtn solid" data-toast="Filed to Clio matter 2026-0188 and logged 0.3 hours.">File to Clio</button>
+          </div>
+        </div>
+
+        <div class="doc-body" id="doc-body">
+          <div class="doc-scroll" id="doc-scroll">
+            <div class="zoom-frame" id="zoom-frame">
+              <div class="zoom-layer" id="zoom-layer">
+                <article class="page" id="doc" contenteditable="true" spellcheck="false" aria-label="Document editor">
+                  <div class="privilege" contenteditable="false">Attorney work product · Draft, not for execution</div>
+                  <h1>Speaking Engagement Agreement</h1>
+                  <div class="subtitle">Whitfield Speaks LLC &nbsp;·&nbsp; Cascade Health Summit, Inc. &nbsp;·&nbsp; 14 April 2026, Portland, Oregon</div>
+                  <div class="rule" contenteditable="false"></div>
+
+                  <div class="clause">
+                    <h4><span class="n">1</span>Definitions</h4>
+                    <div class="sub" data-cl="1.7"><span class="l" contenteditable="false">1.7</span><p>&ldquo;<b>Capture</b>&rdquo; means any audio, video, photographic, or transcribed record of the Presentation, in whole or in part, in any medium now known or later devised, including recordings made by attendees.<span class="cit" contenteditable="false" data-cit="c2">VL-REC-04</span></p></div>
+                    <div class="sub" data-cl="1.8"><span class="l" contenteditable="false">1.8</span><p>&ldquo;<b>Internal Replay</b>&rdquo; means access to the Capture by registered attendees of the Event through the Host&rsquo;s credentialed platform, without download, embed, or public link.</p></div>
+                  </div>
+
+                  <div class="clause">
+                    <h4><span class="n">6</span>Fee and Expenses</h4>
+                    <div class="sub" data-cl="6.1"><span class="l" contenteditable="false">6.1</span><p>The Host shall pay a speaking fee of USD 28,500, of which 50% is due on execution and the balance within fifteen (15) days of the Presentation. Travel, lodging for two (2) nights, and ground transportation are reimbursed at cost against receipts.<span class="cit" contenteditable="false" data-cit="c3">Rider ¶ 6</span></p></div>
+                  </div>
+
+                  <div class="pending" id="pending">
+                    <div class="pending-bar" contenteditable="false">
+                      Drafted from three sources, not yet reviewed
+                      <span class="sp">
+                        <button class="link quiet" id="revise-ins">Revise</button>
+                        <button class="link" id="accept-ins">Accept</button>
+                      </span>
+                    </div>
+                    <div class="clause" style="margin-bottom:0">
+                      <h4><span class="n">7</span>Recording, Likeness, and Replay</h4>
+                      <div class="sub" data-cl="7.1"><span class="l" contenteditable="false">7.1</span><p>All right, title, and interest in the Capture vests in the Speaker upon creation. The Host acquires no ownership interest in the Capture and shall make no derivative work from it except as expressly permitted below.<span class="cit" contenteditable="false" data-cit="c1">Northwind § 8.1</span></p></div>
+                      <div class="sub" data-cl="7.2"><span class="l" contenteditable="false">7.2</span><p>The Speaker grants the Host a non-exclusive, non-transferable licence to make the Capture available for Internal Replay for ninety (90) days following the Event. The Host shall delete all copies within ten (10) business days of expiry and certify deletion in writing on request.<span class="cit" contenteditable="false" data-cit="c1">Northwind § 8.3</span></p></div>
+                      <div class="sub" data-cl="7.3"><span class="l" contenteditable="false">7.3</span><p>The Host shall not publish, broadcast, syndicate, or make publicly available any portion of the Capture, and shall not permit sponsors or third parties to do so, without the Speaker&rsquo;s prior written consent, which may be withheld in the Speaker&rsquo;s sole discretion.<span class="cit" contenteditable="false" data-cit="c2">VL-REC-04</span></p></div>
+                      <div class="sub" data-cl="7.4"><span class="l" contenteditable="false">7.4</span><p>The Host may use the Speaker&rsquo;s name, likeness, and approved biography solely to promote the Event, for the period beginning on execution and ending thirty (30) days after the Event. All other uses require separate written consent.</p></div>
+                    </div>
+                  </div>
+
+                  <div class="clause">
+                    <h4><span class="n">8</span>Cancellation and Force Majeure</h4>
+                    <div class="sub" data-cl="8.2"><span class="l" contenteditable="false">8.2</span><p>If the Host cancels within thirty (30) days of the Event, the full fee is payable. If the Speaker cancels due to illness, injury, or a death in the immediate family, the Speaker shall use reasonable efforts to propose a mutually acceptable substitute date within twelve (12) months and no further liability attaches.<span class="cit" contenteditable="false" data-cit="c4">VL-FM-02</span></p></div>
+                  </div>
+
+                  <div class="sig" contenteditable="false">
+                    <div><div class="line"></div><div class="who-l">Rebecca A. Whitfield, for Whitfield Speaks LLC</div></div>
+                    <div><div class="line"></div><div class="who-l">Authorized signatory, Cascade Health Summit, Inc.</div></div>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+
+          <aside class="src-panel" id="src-panel">
+            <header>
+              <h4>Where this came from</h4>
+              <p>Every provision the assistant drafted, traced to the passage it was built from. Select a clause in either pane.</p>
+            </header>
+            <div class="prov" id="prov"></div>
+          </aside>
+        </div>
+
+        <div class="doc-foot">
+          <span id="wc">0 words</span>
+          <span id="save-state">Saved 9:27</span>
+          <span class="right">
+            <span id="page-count">1 page</span>
+            <span>Letter · 1 in margins</span>
+            <select class="zoom-sel" id="zoom-sel" title="Zoom">
+              <option value="fit">Fit</option>
+              <option value="0.75">75%</option>
+              <option value="1">100%</option>
+              <option value="1.25">125%</option>
+              <option value="1.5">150%</option>
+            </select>
+          </span>
+        </div>
+      </div>
+    </section>
+    <!-- DOCUMENTS -->
+    <section class="view pad" id="view-docs">
+      <div class="vh">
+        <div>
+          <h2>Documents</h2>
+          <p>Every document generated on this desk, with the matter it belongs to and where it has been filed. Opening one loads it into the editor with its drafting history.</p>
+        </div>
+        <button class="link" data-toast="New blank document created in matter 2026-0188.">New document</button>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><span class="n">37</span><span class="k">Generated</span><span class="s">Across 12 matters</span></div>
+        <div class="stat"><span class="n">6</span><span class="k">Awaiting review</span><span class="s">Insertions not yet accepted</span></div>
+        <div class="stat"><span class="n">24</span><span class="k">Filed to Clio</span><span class="s">With matching time entries</span></div>
+        <div class="stat"><span class="n">9</span><span class="k">Executed</span><span class="s">Moved to the precedent library</span></div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-head">
+          <h3>All documents</h3>
+          <div class="filters" id="doc-filters">
+            <button class="filt" data-f="all" aria-pressed="true">All</button>
+            <button class="filt" data-f="draft" aria-pressed="false">Drafts</button>
+            <button class="filt" data-f="review" aria-pressed="false">In review</button>
+            <button class="filt" data-f="final" aria-pressed="false">Final</button>
+          </div>
+          <div class="search"><input id="doc-search" type="search" placeholder="Search documents…"></div>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Document</th><th>Matter</th><th>Type</th><th>Version</th><th>Updated</th><th>Status</th><th>Filed</th><th></th></tr></thead>
+            <tbody id="doc-body">
+              <tr data-f="review"><td><div class="name">Speaking Engagement Agreement — Cascade Health Summit</div><div class="sub2">Drafted with assistant · 4 sessions</div></td><td class="num">2026-0188</td><td>Agreement</td><td class="num">v3</td><td class="num">Today 9:27</td><td class="st"><span class="gold">1 insertion pending</span></td><td>SharePoint</td><td><button class="link quiet" data-open="current">Open</button></td></tr>
+              <tr data-f="draft"><td><div class="name">Engagement letter — Whitfield Speaks LLC 2026</div><div class="sub2">From firm template v4</div></td><td class="num">2026-0188</td><td>Engagement letter</td><td class="num">v2</td><td class="num">24 Sep</td><td class="st">Draft</td><td>SharePoint · Clio</td><td><button class="link quiet" data-toast="Loading engagement letter v2 into the editor.">Open</button></td></tr>
+              <tr data-f="review"><td><div class="name">Bureau representation agreement — renewal</div><div class="sub2">Redlined against 2024 form</div></td><td class="num">2026-0140</td><td>Agreement</td><td class="num">v5</td><td class="num">23 Sep</td><td class="st"><span class="gold">With client</span></td><td>Clio</td><td><button class="link quiet" data-toast="Loading bureau renewal v5 into the editor.">Open</button></td></tr>
+              <tr data-f="draft"><td><div class="name">Course licensing agreement — Meridian Learning</div><div class="sub2">Schedule B outstanding</div></td><td class="num">2026-0163</td><td>Licence</td><td class="num">v1</td><td class="num">22 Sep</td><td class="st">Draft</td><td>—</td><td><button class="link quiet" data-toast="Loading Meridian licence v1 into the editor.">Open</button></td></tr>
+              <tr data-f="final"><td><div class="name">Speaker rider — sponsor adjacency schedule</div><div class="sub2">Approved by M. Valle</div></td><td class="num">2026-0140</td><td>Rider</td><td class="num">v3</td><td class="num">19 Sep</td><td class="st">Final</td><td>SharePoint · Clio</td><td><button class="link quiet" data-toast="Loading sponsor adjacency rider v3 into the editor.">Open</button></td></tr>
+              <tr data-f="final"><td><div class="name">Mutual NDA — Cascade Health Summit</div><div class="sub2">Executed 8 Sep 2026</div></td><td class="num">2026-0188</td><td>NDA</td><td class="num">v2</td><td class="num">8 Sep</td><td class="st">Executed</td><td>SharePoint</td><td><button class="link quiet" data-toast="Executed documents open read-only.">Open</button></td></tr>
+              <tr data-f="draft"><td><div class="name">Demand letter — unauthorised keynote recording</div><div class="sub2">Assistant draft, not yet reviewed</div></td><td class="num">2026-0121</td><td>Correspondence</td><td class="num">v1</td><td class="num">17 Sep</td><td class="st"><span class="gold">3 insertions pending</span></td><td>—</td><td><button class="link quiet" data-toast="Loading demand letter v1 into the editor.">Open</button></td></tr>
+              <tr data-f="final"><td><div class="name">Trademark application cover — &ldquo;The Quiet Room&rdquo;</div><div class="sub2">Filed with USPTO</div></td><td class="num">2026-0121</td><td>Filing</td><td class="num">v1</td><td class="num">12 Sep</td><td class="st">Final</td><td>Clio</td><td><button class="link quiet" data-toast="Filed documents open read-only.">Open</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <p class="note"><b>Versions are kept where the document lives.</b> Saving to SharePoint writes a new version against the same item rather than a new file, so the firm&rsquo;s existing version history, retention policy, and audit trail keep working unchanged.</p>
+    </section>
+    <!-- KNOWLEDGE BASE -->
+    <section class="view pad" id="view-kb">
+      <div class="vh">
+        <div>
+          <h2>Knowledge base</h2>
+          <p>Everything the drafting assistant is allowed to read. Retrieval is permission-trimmed, so a draft never cites a document the drafter could not open themselves.</p>
+        </div>
+        <button class="link" data-toast="Re-index queued. Six files ahead of yours.">Re-index now</button>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><span class="n">1,104</span><span class="k">SharePoint</span><span class="s">7 libraries · crawled 9:23</span></div>
+        <div class="stat"><span class="n">318</span><span class="k">Clio Manage</span><span class="s">42 open matters · crawled 9:16</span></div>
+        <div class="stat"><span class="n">60</span><span class="k">Direct uploads</span><span class="s">6 indexing, about 2 minutes</span></div>
+        <div class="stat"><span class="n">3</span><span class="k">Excluded by policy</span><span class="s">Ethical walls and one no-AI client</span></div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-head">
+          <h3>Indexed documents</h3>
+          <div class="filters" id="kb-filters">
+            <button class="filt" data-f="all" aria-pressed="true">All</button>
+            <button class="filt" data-f="sp" aria-pressed="false">SharePoint</button>
+            <button class="filt" data-f="clio" aria-pressed="false">Clio</button>
+            <button class="filt" data-f="up" aria-pressed="false">Uploads</button>
+          </div>
+          <div class="search"><input id="kb-search" type="search" placeholder="Search titles, matters, clause text…"></div>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Document</th><th>Source</th><th>Matter</th><th>Type</th><th>Indexed</th><th>Handling</th></tr></thead>
+            <tbody id="kb-body">
+              <tr data-f="sp"><td><div class="name">Northwind Summit — Speaking Agreement (executed)</div><div class="sub2">/Precedents/Speaker Agreements/2025</div></td><td>SharePoint</td><td class="num">2025-0642</td><td>Executed agreement</td><td class="num">12 Sep</td><td class="st">Precedent</td></tr>
+              <tr data-f="clio"><td><div class="name">Whitfield — Standard Engagement Rider 2026</div><div class="sub2">Clio · Documents · Whitfield Speaks LLC</div></td><td>Clio</td><td class="num">2026-0188</td><td>Rider</td><td class="num">14 Sep</td><td class="st">Client paper</td></tr>
+              <tr data-f="up"><td><div class="name">Cascade Health Summit — Host form agreement</div><div class="sub2">Uploaded by R. Tanaka</div></td><td>Upload</td><td class="num">2026-0188</td><td>Counterparty form</td><td class="num">22 Sep</td><td class="st"><span class="gold">Unvetted</span></td></tr>
+              <tr data-f="sp"><td><div class="name">Recording and likeness — firm position memo</div><div class="sub2">/Knowledge/Memos/Media rights</div></td><td>SharePoint</td><td>—</td><td>Internal memo</td><td class="num">3 Aug</td><td class="st">Firm guidance</td></tr>
+              <tr data-f="sp"><td><div class="name">Bureau agreement — Keppler Speakers (2024 form)</div><div class="sub2">/Precedents/Bureau/Keppler</div></td><td>SharePoint</td><td class="num">2024-0311</td><td>Executed agreement</td><td class="num">28 Jul</td><td class="st">Precedent</td></tr>
+              <tr data-f="clio"><td><div class="name">Ortega v. Halloran Media — settlement terms</div><div class="sub2">Clio · Matter notes · restricted</div></td><td>Clio</td><td class="num">2025-0907</td><td>Settlement</td><td class="num">—</td><td class="st"><span class="risk">Walled off</span></td></tr>
+              <tr data-f="up"><td><div class="name">Sponsorship adjacency — client redlines, three rounds</div><div class="sub2">Uploaded by D. Okafor</div></td><td>Upload</td><td class="num">2026-0140</td><td>Redline history</td><td class="num">19 Sep</td><td class="st">Client paper</td></tr>
+              <tr data-f="sp"><td><div class="name">Master template — Speaking Engagement Agreement v9</div><div class="sub2">/Templates/Active</div></td><td>SharePoint</td><td>—</td><td>Firm template</td><td class="num">1 Sep</td><td class="st">Authoritative</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <p class="note"><b>Retrieval is permission-trimmed.</b> A passage is only returned if the signed-in attorney has read access to the underlying SharePoint item or Clio matter. Walled matters never enter the index at all, so they cannot surface through a prompt.</p>
+    </section>
+
+    <!-- MATTERS -->
+    <section class="view pad" id="view-matters">
+      <div class="vh">
+        <div>
+          <h2>Matters</h2>
+          <p>Synced from Clio Manage. Selecting a matter scopes every retrieval, citation, and file-back action to that matter&rsquo;s documents.</p>
+        </div>
+        <button class="link" data-toast="Pulled 42 matters from Clio. Two updated.">Sync from Clio</button>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Matter</th><th>Client</th><th>Responsible</th><th>Drafts</th><th>Next date</th><th>Status</th><th></th></tr></thead>
+          <tbody>
+            <tr><td><div class="name">Keynote Engagement — Cascade Health Summit</div><div class="sub2">2026-0188 · Speaking engagements</div></td><td>Whitfield Speaks LLC</td><td>M. Valle</td><td class="num">2</td><td class="num">14 Apr 2026</td><td class="st"><span class="gold">Active draft</span></td><td><button class="link quiet" data-view-jump="draft">Open</button></td></tr>
+            <tr><td><div class="name">Bureau representation renewal</div><div class="sub2">2026-0140 · Representation</div></td><td>Whitfield Speaks LLC</td><td>D. Okafor</td><td class="num">1</td><td class="num">30 Oct 2026</td><td class="st">Awaiting client</td><td><button class="link quiet" data-toast="Opening 2026-0140 would swap the drafting context.">Open</button></td></tr>
+            <tr><td><div class="name">Course licensing — Meridian Learning</div><div class="sub2">2026-0163 · IP licensing</div></td><td>Jordan Amaya</td><td>M. Valle</td><td class="num">3</td><td class="num">7 Nov 2026</td><td class="st"><span class="gold">Active draft</span></td><td><button class="link quiet" data-toast="Opening 2026-0163 would swap the drafting context.">Open</button></td></tr>
+            <tr><td><div class="name">Trademark — &ldquo;The Quiet Room&rdquo; word mark</div><div class="sub2">2026-0121 · Trademark</div></td><td>Priya Raghavan</td><td>D. Okafor</td><td class="num">0</td><td class="num">2 Dec 2026</td><td class="st">Filed</td><td><button class="link quiet" data-toast="No open drafts on 2026-0121.">Open</button></td></tr>
+            <tr><td><div class="name">Ortega v. Halloran Media</div><div class="sub2">2025-0907 · Litigation</div></td><td>Confidential</td><td>M. Valle</td><td class="num">—</td><td class="num">—</td><td class="st"><span class="risk">Ethical wall</span></td><td><span class="sub2">Restricted</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- CLAUSE BANK -->
+    <section class="view pad" id="view-clauses">
+      <div class="vh">
+        <div>
+          <h2>Clause bank</h2>
+          <p>Approved language with a stated posture. The assistant prefers these over precedent text, and names the clause code in the citation whenever it uses one.</p>
+        </div>
+        <button class="link" data-toast="Draft clause created. It stays unapproved until a partner signs off.">New clause</button>
+      </div>
+      <div class="clist">
+        <div class="crow">
+          <div class="code">VL-REC-04</div>
+          <h4>Recording and likeness — speaker-retained, replay carve-out</h4>
+          <div class="body">All right, title, and interest in the Capture vests in the Speaker upon creation. The Host acquires no ownership interest…</div>
+          <div class="meta"><b>Preferred</b>Used 31× · M. Valle, 4 Mar 2026</div>
+        </div>
+        <div class="crow">
+          <div class="code">VL-REC-06</div>
+          <h4>Promotional excerpt licence — three minutes, speaker approval</h4>
+          <div class="body">Host may publish a single excerpt of no more than three (3) minutes, drawn from footage designated by the Speaker and approved in writing prior to release…</div>
+          <div class="meta"><b>Fallback</b>Used 9× · M. Valle, 4 Mar 2026</div>
+        </div>
+        <div class="crow">
+          <div class="code">VL-FM-02</div>
+          <h4>Force majeure — speaker illness, substitute date</h4>
+          <div class="body">If the Speaker cancels due to illness, injury, or a death in the immediate family, the Speaker shall use reasonable efforts to propose a mutually acceptable substitute date…</div>
+          <div class="meta"><b>Preferred</b>Used 57× · D. Okafor, 11 Jan 2026</div>
+        </div>
+        <div class="crow">
+          <div class="code">VL-IND-01</div>
+          <h4>Indemnity — mutual, capped at the fee</h4>
+          <div class="body">Each party shall indemnify the other against third-party claims arising from its own negligence or wilful misconduct, provided that aggregate liability shall not exceed the Fee…</div>
+          <div class="meta"><b>Preferred</b>Used 44× · M. Valle, 9 Feb 2026</div>
+        </div>
+        <div class="crow">
+          <div class="code">VL-SPN-03</div>
+          <h4>Sponsor adjacency — named exclusions</h4>
+          <div class="body">The Host shall not place the Speaker&rsquo;s name, likeness, or session adjacent to any sponsor in the categories listed at Schedule B without prior written consent…</div>
+          <div class="meta"><b>Negotiated</b>Used 12× · under review</div>
+        </div>
+        <div class="crow">
+          <div class="code">VL-ARB-05</div>
+          <h4>Dispute resolution — mediation first, then AAA</h4>
+          <div class="body">The parties shall attempt in good faith to resolve any dispute by mediation in Multnomah County, Oregon, before commencing arbitration under the Commercial Rules…</div>
+          <div class="meta"><b>Retired</b>Superseded by VL-ARB-07</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONNECTIONS -->
+    <section class="view pad" id="view-conn">
+      <div class="vh">
+        <div>
+          <h2>Connections</h2>
+          <p>Two systems of record and one index. Documents are read where they live and written back with the firm&rsquo;s own naming convention, so nothing becomes a second copy nobody trusts.</p>
+        </div>
+      </div>
+
+      <div class="two">
+        <div class="conn">
+          <h3>Microsoft SharePoint</h3>
+          <div class="state"><i></i>Connected · delta sync every 15 minutes</div>
+          <dl class="kv">
+            <dt>Tenant</dt><dd class="mono">vallelegal.sharepoint.com</dd>
+            <dt>Site</dt><dd class="mono">/sites/VL-Practice</dd>
+            <dt>Libraries</dt><dd>Precedents, Templates, Matters, Knowledge, Executed, Bureau, Archive</dd>
+            <dt>Auth</dt><dd>Entra ID, delegated — permissions follow the signed-in attorney</dd>
+            <dt>Scopes</dt><dd class="mono">Sites.Selected · Files.ReadWrite</dd>
+            <dt>Write-back</dt><dd class="mono">/Matters/{matter}/Drafts/{doc}-v{n}.docx</dd>
+          </dl>
+          <div class="log">
+            <div class="log-row"><span class="when">9:23</span><span>Delta crawl — 4 items changed, 4 re-embedded</span></div>
+            <div class="log-row"><span class="when">9:08</span><span>Wrote Cascade Health Summit v3 to /Matters/2026-0188/Drafts</span></div>
+            <div class="log-row"><span class="when">8:53</span><span>Skipped 3 items — attorney lacks read access</span></div>
+          </div>
+          <div class="conn-foot">
+            <button class="link" data-sync="sp">Sync now</button>
+            <button class="link quiet" data-toast="Library mapping opens the folder picker.">Edit mapping</button>
+            <span class="mono" id="sp-foot">Last sync 9:23</span>
+          </div>
+        </div>
+
+        <div class="conn">
+          <h3>Clio Manage</h3>
+          <div class="state"><i></i>Connected · OAuth refreshed nightly</div>
+          <dl class="kv">
+            <dt>Region</dt><dd class="mono">app.clio.com · US</dd>
+            <dt>Firm</dt><dd>Valle Legal PC — 42 open matters, 118 contacts</dd>
+            <dt>Reads</dt><dd>Matters, contacts, documents, notes, custom fields</dd>
+            <dt>Writes</dt><dd>Filed drafts, matter notes, and a time entry per drafting session</dd>
+            <dt>Scopes</dt><dd class="mono">matters:read · documents:write · activities:write</dd>
+            <dt>Webhooks</dt><dd class="mono">matter.updated</dd>
+          </dl>
+          <div class="log">
+            <div class="log-row"><span class="when">9:16</span><span>Pulled 42 matters — 2 updated, 1 new contact</span></div>
+            <div class="log-row"><span class="when">9:09</span><span>Logged 0.3 h to 2026-0188, drafting § 7</span></div>
+            <div class="log-row"><span class="when">8:40</span><span>Matter 2025-0907 flagged restricted, excluded from index</span></div>
+          </div>
+          <div class="conn-foot">
+            <button class="link" data-sync="clio">Sync now</button>
+            <button class="link quiet" data-toast="Time-entry defaults open in settings.">Time entries</button>
+            <span class="mono" id="clio-foot">Last sync 9:16</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="note"><b>Data handling.</b> Documents are processed in the firm&rsquo;s tenant region, retained for the life of the matter, and excluded from model training. Walled matters and clients whose engagement letter forbids automated processing are removed from the index at source, not filtered at query time.</p>
+    </section>
+
+  </main>
+</div>
+
+<div class="pop" id="pop" role="dialog" aria-label="Source detail"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(function(){
+  var $=function(s,r){return (r||document).querySelector(s)};
+  var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+  var store={
+    get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},
+    set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+  };
+
+  /* ---------- views ---------- */
+  function show(v){
+    $$('.view').forEach(function(s){s.classList.toggle('active',s.id==='view-'+v)});
+    $$('.nav-item').forEach(function(b){
+      if(b.dataset.view===v){b.setAttribute('aria-current','page')}else{b.removeAttribute('aria-current')}
+    });
+  }
+  $$('.nav-item').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.view)})});
+  $$('[data-view-jump]').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.viewJump)})});
+  $$('[data-open="current"]').forEach(function(b){
+    b.addEventListener('click',function(){show('draft');toast('Loaded Cascade Health Summit v3 into the editor.')});
+  });
+
+  /* ---------- sidebar collapse ---------- */
+  var app=$('#app');
+  function setCollapsed(on){
+    app.classList.toggle('collapsed',on);
+    store.set('vl-rail',on?'1':'0');
+    setTimeout(function(){window.dispatchEvent(new Event('vl:panes'))},220);
+  }
+  $('#collapse').addEventListener('click',function(){setCollapsed(true)});
+  $('#reopen').addEventListener('click',function(){setCollapsed(false)});
+  if(store.get('vl-rail')==='1')setCollapsed(true);
+
+  /* ---------- theme ---------- */
+  var MOON='<svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9Z"/></svg>';
+  var SUN='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>';
+  function currentTheme(){
+    var a=document.documentElement.getAttribute('data-theme');
+    if(a)return a;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';
+  }
+  function paintThemeBtn(){
+    var dark=currentTheme()==='dark';
+    $('#theme-icon').innerHTML=dark?SUN:MOON;
+    $('#theme-label').textContent=dark?'Light mode':'Dark mode';
+    $('#theme-toggle').setAttribute('aria-label',dark?'Switch to light mode':'Switch to dark mode');
+  }
+  $('#theme-toggle').addEventListener('click',function(){
+    var next=currentTheme()==='dark'?'light':'dark';
+    document.documentElement.setAttribute('data-theme',next);
+    store.set('vl-theme',next);paintThemeBtn();
+  });
+  var saved=store.get('vl-theme');
+  if(saved)document.documentElement.setAttribute('data-theme',saved);
+  paintThemeBtn();
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(){
+    if(!document.documentElement.getAttribute('data-theme'))paintThemeBtn();
+  });
+
+  /* ---------- toast ---------- */
+  var toastEl=$('#toast'),tt;
+  function toast(m){toastEl.textContent=m;toastEl.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){toastEl.classList.remove('show')},2600)}
+  document.addEventListener('click',function(e){var b=e.target.closest('[data-toast]');if(b)toast(b.dataset.toast)});
+
+  /* ---------- pane resize ---------- */
+  var draft=$('#view-draft'),splitter=$('#splitter'),threadCol=$('.thread-col');
+  var savedW=parseInt(store.get('vl-chat-w'),10);
+  if(savedW)draft.style.setProperty('--chat-w',savedW+'px');
+  function clampW(px){
+    var total=draft.clientWidth;
+    return Math.max(330,Math.min(px,Math.max(420,total-420)));
+  }
+  function startDrag(startX,startW){
+    var w=startW;
+    splitter.classList.add('drag');document.body.classList.add('resizing');
+    function move(e){
+      w=clampW(startW+((e.touches?e.touches[0].clientX:e.clientX)-startX));
+      draft.style.setProperty('--chat-w',w+'px');
+      window.dispatchEvent(new Event('vl:panes'));
+    }
+    function up(){
+      splitter.classList.remove('drag');document.body.classList.remove('resizing');
+      store.set('vl-chat-w',String(w));
+      window.removeEventListener('mousemove',move);window.removeEventListener('mouseup',up);
+      window.removeEventListener('touchmove',move);window.removeEventListener('touchend',up);
+    }
+    window.addEventListener('mousemove',move);window.addEventListener('mouseup',up);
+    window.addEventListener('touchmove',move,{passive:true});window.addEventListener('touchend',up);
+  }
+  splitter.addEventListener('mousedown',function(e){e.preventDefault();startDrag(e.clientX,threadCol.offsetWidth)});
+  splitter.addEventListener('touchstart',function(e){startDrag(e.touches[0].clientX,threadCol.offsetWidth)},{passive:true});
+  splitter.addEventListener('dblclick',function(){draft.style.setProperty('--chat-w','440px');store.set('vl-chat-w','440')});
+  splitter.addEventListener('keydown',function(e){
+    var step=e.shiftKey?60:20,w=threadCol.offsetWidth;
+    if(e.key==='ArrowLeft'){w=clampW(w-step)}else if(e.key==='ArrowRight'){w=clampW(w+step)}else{return}
+    e.preventDefault();draft.style.setProperty('--chat-w',w+'px');store.set('vl-chat-w',String(w));
+  });
+
+  /* ---------- citations ---------- */
+  var SOURCES={
+    c1:{badge:'SharePoint',title:'Northwind Summit — Speaking Agreement (executed)',loc:'§ 8.1–8.4',
+        path:'/sites/VL-Practice/Precedents/Speaker Agreements/2025',meta:'Matter 2025-0642 · executed 3 Nov 2025 · indexed 12 Sep',
+        quote:'All right, title and interest in any recording of the Presentation shall vest in the Speaker. The Host shall be granted access for internal replay for a period of one hundred twenty (120) days…'},
+    c2:{badge:'Clause bank',title:'Recording and likeness — speaker-retained, replay carve-out',loc:'VL-REC-04',
+        path:'Firm clause bank · preferred position',meta:'Approved M. Valle, 4 Mar 2026 · used in 31 agreements',
+        quote:'All right, title, and interest in the Capture vests in the Speaker upon creation. The Host acquires no ownership interest in the Capture and shall make no derivative work from it except as expressly permitted.'},
+    c3:{badge:'Clio',title:'Whitfield — Standard Engagement Rider 2026',loc:'¶ 6',
+        path:'Clio · Documents · Whitfield Speaks LLC',meta:'Matter 2026-0188 · client paper · indexed 14 Sep',
+        quote:'No portion of any recording may be posted publicly, shared with sponsors, or used in promotion of any future event without my written approval in each instance.'},
+    c4:{badge:'Clause bank',title:'Force majeure — speaker illness, substitute date',loc:'VL-FM-02',
+        path:'Firm clause bank · preferred position',meta:'Approved D. Okafor, 11 Jan 2026 · used in 57 agreements',
+        quote:'If the Speaker cancels due to illness, injury, or a death in the immediate family, the Speaker shall use reasonable efforts to propose a mutually acceptable substitute date within twelve (12) months and no further liability attaches.'}
+  };
+  var pop=$('#pop');
+  function closePop(){pop.classList.remove('open')}
+  document.addEventListener('click',function(e){
+    var t=e.target.closest('[data-cit]');
+    if(!t){if(!e.target.closest('#pop'))closePop();return}
+    var s=SOURCES[t.dataset.cit];if(!s)return;
+    pop.innerHTML='<div class="r"><span class="mono">'+s.badge+' · '+s.loc+'</span></div>'+
+      '<h5>'+s.title+'</h5><div class="q">'+s.quote+'</div>'+
+      '<div class="r">'+s.path+'</div><div class="r">'+s.meta+'</div>'+
+      '<div class="acts"><button class="link" data-toast="Opening the source in its system of record.">Open source</button>'+
+      '<button class="link quiet" data-toast="Passage pinned to this drafting session.">Pin to session</button></div>';
+    pop.classList.add('open');
+    var r=t.getBoundingClientRect();
+    pop.style.top=Math.max(12,Math.min(r.bottom+8,window.innerHeight-pop.offsetHeight-12))+'px';
+    pop.style.left=Math.min(Math.max(12,r.left-150),window.innerWidth-pop.offsetWidth-12)+'px';
+    e.stopPropagation();
+  });
+  window.addEventListener('keydown',function(e){if(e.key==='Escape')closePop()});
+  window.addEventListener('resize',closePop);
+
+  /* ---------- pending insertion ---------- */
+  var pending=$('#pending');
+  $('#accept-ins').addEventListener('click',function(){
+    pending.classList.add('settled');
+    $('#doc-status').textContent='all insertions reviewed';
+    toast('§ 7 accepted. Version 4 saved to SharePoint.');
+  });
+  $('#revise-ins').addEventListener('click',function(){
+    var i=$('#input');i.value='Revise § 7 — ';i.focus();i.setSelectionRange(i.value.length,i.value.length);
+  });
+
+  /* ---------- table filtering ---------- */
+  function wireTable(filterId,searchId,bodyId){
+    var rows=$$('#'+bodyId+' tr'),f='all',q='';
+    function apply(){
+      rows.forEach(function(r){
+        var okF=f==='all'||r.dataset.f===f;
+        var okQ=!q||r.textContent.toLowerCase().indexOf(q)>-1;
+        r.hidden=!(okF&&okQ);
+      });
+    }
+    $$('#'+filterId+' .filt').forEach(function(b){
+      b.addEventListener('click',function(){
+        $$('#'+filterId+' .filt').forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});
+        f=b.dataset.f;apply();
+      });
+    });
+    $('#'+searchId).addEventListener('input',function(e){q=e.target.value.trim().toLowerCase();apply()});
+  }
+  wireTable('kb-filters','kb-search','kb-body');
+  wireTable('doc-filters','doc-search','doc-body');
+
+  /* ---------- sync ---------- */
+  function nowStr(){var d=new Date();return d.getHours()+':'+String(d.getMinutes()).padStart(2,'0')}
+  $$('[data-sync]').forEach(function(b){
+    b.addEventListener('click',function(){
+      var k=b.dataset.sync,t=nowStr(),old=b.textContent;
+      b.textContent='Syncing…';
+      setTimeout(function(){
+        b.textContent=old;
+        $('#'+k+'-foot').textContent='Last sync '+t;
+        toast(k==='sp'?'SharePoint delta crawl complete. Two items re-embedded.':'Clio sync complete. 42 matters, no conflicts.');
+      },900);
+    });
+  });
+
+  /* ---------- .docx writer (OOXML, stored zip) ---------- */
+  var CRC=(function(){var t=new Uint32Array(256);for(var n=0;n<256;n++){var c=n;for(var k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+  function crc32(u8){var c=0xFFFFFFFF;for(var i=0;i<u8.length;i++)c=CRC[(c^u8[i])&0xFF]^(c>>>8);return (c^0xFFFFFFFF)>>>0}
+  function zipStore(files){
+    var enc=new TextEncoder(),parts=[],central=[],offset=0;
+    files.forEach(function(f){
+      var data=typeof f.data==='string'?enc.encode(f.data):f.data,name=enc.encode(f.name),crc=crc32(data);
+      var lh=new Uint8Array(30+name.length),dv=new DataView(lh.buffer);
+      dv.setUint32(0,0x04034b50,true);dv.setUint16(4,20,true);dv.setUint32(14,crc,true);
+      dv.setUint32(18,data.length,true);dv.setUint32(22,data.length,true);dv.setUint16(26,name.length,true);
+      lh.set(name,30);parts.push(lh,data);
+      var ch=new Uint8Array(46+name.length),cv=new DataView(ch.buffer);
+      cv.setUint32(0,0x02014b50,true);cv.setUint16(4,20,true);cv.setUint16(6,20,true);
+      cv.setUint32(16,crc,true);cv.setUint32(20,data.length,true);cv.setUint32(24,data.length,true);
+      cv.setUint16(28,name.length,true);cv.setUint32(42,offset,true);ch.set(name,46);
+      central.push(ch);offset+=lh.length+data.length;
+    });
+    var cdSize=central.reduce(function(a,b){return a+b.length},0);
+    var eocd=new Uint8Array(22),ev=new DataView(eocd.buffer);
+    ev.setUint32(0,0x06054b50,true);ev.setUint16(8,files.length,true);ev.setUint16(10,files.length,true);
+    ev.setUint32(12,cdSize,true);ev.setUint32(16,offset,true);
+    return new Blob(parts.concat(central,[eocd]),{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+  }
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+  function R(text,f){
+    if(text==='')return'';
+    f=f||{};var p='<w:rPr>';
+    if(f.font)p+='<w:rFonts w:ascii="'+f.font+'" w:hAnsi="'+f.font+'"/>';
+    if(f.b)p+='<w:b/>';if(f.i)p+='<w:i/>';if(f.u)p+='<w:u w:val="single"/>';if(f.caps)p+='<w:caps/>';
+    if(f.color)p+='<w:color w:val="'+f.color+'"/>';
+    if(f.sz)p+='<w:sz w:val="'+f.sz+'"/><w:szCs w:val="'+f.sz+'"/>';
+    if(f.spacing)p+='<w:spacing w:val="'+f.spacing+'"/>';
+    p+='</w:rPr>';
+    return '<w:r>'+p+'<w:t xml:space="preserve">'+esc(text)+'</w:t></w:r>';
+  }
+  function P(runs,o){
+    o=o||{};var p='<w:pPr>';
+    if(o.align)p+='<w:jc w:val="'+o.align+'"/>';
+    if(o.indent)p+='<w:ind w:left="'+o.indent+'"'+(o.hanging?' w:hanging="'+o.hanging+'"':'')+'/>';
+    p+='<w:spacing w:before="'+(o.before||0)+'" w:after="'+(o.after==null?140:o.after)+'" w:line="'+(o.line||288)+'" w:lineRule="auto"/>';
+    if(o.border)p+='<w:pBdr><w:bottom w:val="single" w:sz="4" w:space="1" w:color="CCCCCC"/></w:pBdr>';
+    p+='</w:pPr>';
+    return '<w:p>'+p+(runs||'')+'</w:p>';
+  }
+  function inlineRuns(node,inh){
+    var out='';
+    Array.prototype.forEach.call(node.childNodes,function(n){
+      if(n.nodeType===3){out+=R(n.nodeValue.replace(/\s+/g,' '),inh)}
+      else if(n.nodeType===1){
+        if(n.classList&&n.classList.contains('cit'))return;
+        var f={};for(var k in inh)f[k]=inh[k];
+        var t=n.tagName;
+        if(t==='B'||t==='STRONG')f.b=true;
+        if(t==='I'||t==='EM')f.i=true;
+        if(t==='U')f.u=true;
+        out+=inlineRuns(n,f);
+      }
+    });
+    return out;
+  }
+  function blocksXml(el){
+    var out='';
+    Array.prototype.forEach.call(el.children,function(n){
+      var c=n.classList,t=n.tagName;
+      if(c.contains('pending-bar'))return;
+      if(c.contains('rule')){out+=P('',{border:true,after:220});return}
+      if(c.contains('privilege')){out+=P(R(n.textContent,{sz:15,caps:true,spacing:26,color:'8A8A8A',font:'Arial'}),{after:420});return}
+      if(c.contains('subtitle')){out+=P(R(n.textContent.replace(/\s+/g,' ').trim(),{sz:18,color:'7A7A7A',font:'Arial'}),{align:'center',after:120});return}
+      if(t==='H1'){out+=P(inlineRuns(n,{sz:30}),{align:'center',before:160,after:120});return}
+      if(t==='H2'){out+=P(inlineRuns(n,{sz:26,b:true}),{before:280,after:120});return}
+      if(t==='H4'){
+        var num=n.querySelector('.n'),cl=n.cloneNode(true),cn=cl.querySelector('.n');
+        if(cn)cn.remove();
+        out+=P(R((num?num.textContent.trim()+'   ':'')+cl.textContent.trim().toUpperCase(),
+                 {b:true,sz:17,spacing:22,font:'Arial',color:'555555'}),{before:280,after:140});
+        return;
+      }
+      if(c.contains('sub')){
+        var l=n.querySelector('.l'),p=n.querySelector('p');
+        out+=P(R(l?l.textContent.trim()+'   ':'',{color:'999999',sz:19})+(p?inlineRuns(p,{}):''),
+               {indent:709,hanging:709,after:170,align:'both'});
+        return;
+      }
+      if(t==='P'){out+=P(inlineRuns(n,{}),{after:170,align:'both'});return}
+      if(t==='UL'||t==='OL'){
+        Array.prototype.forEach.call(n.children,function(li,i){
+          out+=P(R(t==='UL'?'•  ':(i+1)+'.  ',{})+inlineRuns(li,{}),{indent:454,hanging:227,after:90});
+        });
+        return;
+      }
+      if(c.contains('sig')){
+        Array.prototype.forEach.call(n.children,function(d){
+          var w=d.querySelector('.who-l');
+          out+=P(R('______________________________________',{color:'9A9A9A'}),{before:420,after:60});
+          out+=P(R(w?w.textContent:'',{sz:17,color:'7A7A7A',font:'Arial'}),{after:260});
+        });
+        return;
+      }
+      if(n.children.length){out+=blocksXml(n)}
+      else if(n.textContent.trim()){out+=P(inlineRuns(n,{}),{after:170})}
+    });
+    return out;
+  }
+  function buildDocx(root,title){
+    var body=blocksXml(root)+
+      '<w:sectPr><w:pgSz w:w="12240" w:h="15840"/>'+
+      '<w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="720" w:footer="720"/></w:sectPr>';
+    var X='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n';
+    return zipStore([
+      {name:'[Content_Types].xml',data:X+'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">'+
+        '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>'+
+        '<Default Extension="xml" ContentType="application/xml"/>'+
+        '<Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>'+
+        '<Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/>'+
+        '<Override PartName="/docProps/core.xml" ContentType="application/vnd.openxmlformats-package.core-properties+xml"/></Types>'},
+      {name:'_rels/.rels',data:X+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+
+        '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/>'+
+        '<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties" Target="docProps/core.xml"/></Relationships>'},
+      {name:'docProps/core.xml',data:X+'<cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" '+
+        'xmlns:dc="http://purl.org/dc/elements/1.1/"><dc:title>'+esc(title)+'</dc:title>'+
+        '<dc:creator>Valle Legal Drafting Desk</dc:creator></cp:coreProperties>'},
+      {name:'word/_rels/document.xml.rels',data:X+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+
+        '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>'},
+      {name:'word/styles.xml',data:X+'<w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'+
+        '<w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="Georgia" w:hAnsi="Georgia" w:cs="Georgia"/>'+
+        '<w:sz w:val="22"/><w:szCs w:val="22"/><w:color w:val="232838"/></w:rPr></w:rPrDefault></w:docDefaults></w:styles>'},
+      {name:'word/document.xml',data:X+'<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>'+body+'</w:body></w:document>'}
+    ]);
+  }
+
+  function saveFile(filename,blob,okMsg){
+    var fallback=function(){
+      try{
+        var url=URL.createObjectURL(blob),a=document.createElement('a');
+        a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();
+        setTimeout(function(){URL.revokeObjectURL(url)},1500);
+        toast(okMsg);
+      }catch(e){toast('Could not save the file here. Use Copy and paste into Word.')}
+    };
+    var use=window.claude&&window.claude.use;
+    if(!use)return fallback();
+    Promise.resolve(window.claude.use('downloads')).then(function(dl){
+      if(!dl)return fallback();
+      dl.save({filename:filename,data:blob}).then(function(){toast(okMsg)},function(err){
+        if(err&&err.code==='declined')return;
+        fallback();
+      });
+    },fallback);
+  }
+
+  /* ---------- word editor ---------- */
+  var doc=$('#doc'),toolbar=$('#toolbar'),saveState=$('#save-state'),wcEl=$('#wc'),dirty=false;
+
+  function exec(cmd,val){
+    doc.focus();
+    try{document.execCommand(cmd,false,val||null)}catch(e){}
+    refreshToolbar();markDirty();
+  }
+  toolbar.addEventListener('mousedown',function(e){
+    if(e.target.closest('.tb')&&!e.target.closest('.tb-sel'))e.preventDefault();
+  });
+  $$('#toolbar .tb[data-cmd]').forEach(function(b){
+    b.addEventListener('click',function(){exec(b.dataset.cmd)});
+  });
+  $('#block-style').addEventListener('change',function(e){
+    exec('formatBlock','<'+e.target.value+'>');
+  });
+  $('#insert-clause').addEventListener('click',function(){
+    doc.focus();
+    var html='<div class="clause"><h4><span class="n">7.5</span>Promotional Excerpt</h4>'+
+      '<div class="sub"><span class="l" contenteditable="false">7.5</span><p>The Host may publish a single excerpt of the Capture of no more than three (3) minutes, drawn from footage designated by the Speaker and approved by the Speaker in writing prior to release, solely to promote the Event.<span class="cit" contenteditable="false" data-cit="c2">VL-REC-06</span></p></div></div>';
+    try{document.execCommand('insertHTML',false,html)}catch(e){doc.insertAdjacentHTML('beforeend',html)}
+    markDirty();toast('Inserted VL-REC-06 at the cursor.');
+  });
+
+  var STATE_CMDS=['bold','italic','underline','insertUnorderedList','insertOrderedList','justifyLeft','justifyFull'];
+  function refreshToolbar(){
+    var sel=window.getSelection();
+    var inDoc=sel&&sel.rangeCount&&doc.contains(sel.getRangeAt(0).commonAncestorContainer);
+    STATE_CMDS.forEach(function(c){
+      var b=toolbar.querySelector('.tb[data-cmd="'+c+'"]');if(!b)return;
+      var on=false;
+      if(inDoc){try{on=document.queryCommandState(c)}catch(e){}}
+      b.classList.toggle('on',on);
+    });
+    if(inDoc){
+      var node=sel.getRangeAt(0).startContainer;
+      var block=node.nodeType===1?node:node.parentElement;
+      var tag=(block&&block.closest('h1,h2,p'))||null;
+      $('#block-style').value=tag?tag.tagName.toLowerCase():'p';
+    }
+  }
+  document.addEventListener('selectionchange',refreshToolbar);
+
+  function countWords(){
+    var t=doc.innerText.replace(/\s+/g,' ').trim();
+    var n=t?t.split(' ').length:0;
+    wcEl.textContent=n.toLocaleString()+' words';
+  }
+  function markDirty(){
+    if(!dirty){dirty=true;saveState.innerHTML='<span class="dirty">Unsaved changes</span>'}
+    countWords();
+  }
+  doc.addEventListener('input',markDirty);
+  doc.addEventListener('keydown',function(e){
+    var mod=e.metaKey||e.ctrlKey;
+    if(mod&&e.key.toLowerCase()==='s'){e.preventDefault();saveDoc()}
+  });
+  countWords();
+
+  function saveDoc(){
+    dirty=false;saveState.textContent='Saved '+nowStr();
+    toast('Saved to /Matters/2026-0188/Drafts as v4.');
+  }
+  $('#save-doc').addEventListener('click',saveDoc);
+
+  /* export helpers */
+  function cleanClone(){
+    var c=doc.cloneNode(true);
+    $$('.pending-bar',c).forEach(function(n){n.remove()});
+    return c;
+  }
+  function docName(){
+    return $('#doc-name').textContent.trim().replace(/[^\w\- ]+/g,'').replace(/\s+/g,'-');
+  }
+  function plainText(){
+    var c=cleanClone();
+    $$('.cit',c).forEach(function(n){n.remove()});
+    return c.innerText.replace(/\n{3,}/g,'\n\n').trim();
+  }
+  $('#download-doc').addEventListener('click',function(){
+    var name=docName()+'-v3.docx';
+    saveFile(name,buildDocx(cleanClone(),$('#doc-name').textContent),'Downloaded '+name+' — opens in Word, fully editable.');
+  });
+  $('#copy-doc').addEventListener('click',function(){
+    var c=cleanClone();
+    $$('.cit',c).forEach(function(n){n.remove()});
+    var html='<html><head><meta charset="utf-8"></head><body style="font-family:Georgia,serif;font-size:11pt;line-height:1.55;color:#232838">'+c.innerHTML+'</body></html>';
+    var text=plainText();
+    function fallback(){
+      var ta=document.createElement('textarea');ta.value=text;
+      ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);
+      ta.select();try{document.execCommand('copy')}catch(e){}
+      ta.remove();toast('Document copied as plain text.');
+    }
+    if(window.ClipboardItem&&navigator.clipboard&&navigator.clipboard.write){
+      navigator.clipboard.write([new ClipboardItem({
+        'text/html':new Blob([html],{type:'text/html'}),
+        'text/plain':new Blob([text],{type:'text/plain'})
+      })]).then(function(){toast('Document copied with formatting. Paste into Word.')},fallback);
+    }else if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){toast('Document copied as plain text.')},fallback);
+    }else{fallback()}
+  });
+
+  /* ---------- view modes, zoom, pagination, provenance ---------- */
+  var docCol=$('#doc-col'),scrollEl=$('#doc-scroll'),frame=$('#zoom-frame'),layer=$('#zoom-layer');
+  var PAGE_W=816,PAGE_H=1056,MARGIN=96,FOOTZONE=26;
+  var mode='edit',zoomPref='fit';
+
+  var docBody=$('#doc-body');
+  var SPLIT_MIN=760;
+  function syncSplit(){
+    docBody.classList.toggle('narrow',mode==='sources'&&docBody.clientWidth<SPLIT_MIN);
+  }
+  function applyZoom(){
+    syncSplit();
+    var avail=Math.max(160,scrollEl.clientWidth-56);
+    var s=zoomPref==='fit'?Math.max(.2,Math.min(1,avail/PAGE_W)):parseFloat(zoomPref);
+    layer.style.transform='scale('+s+')';
+    frame.style.width=Math.round(PAGE_W*s)+'px';
+    frame.style.height=Math.round(layer.offsetHeight*s)+'px';
+  }
+  var zt;
+  function queueZoom(){clearTimeout(zt);zt=setTimeout(applyZoom,60)}
+  function zoomAfterLayout(){
+    requestAnimationFrame(function(){requestAnimationFrame(applyZoom)});
+    setTimeout(applyZoom,120);
+  }
+  $('#zoom-sel').addEventListener('change',function(e){zoomPref=e.target.value;applyZoom()});
+  if(window.ResizeObserver){
+    try{
+      var ro=new ResizeObserver(queueZoom);
+      ro.observe(scrollEl);ro.observe(docBody);
+    }catch(e){}
+  }
+  window.addEventListener('resize',queueZoom);
+  window.addEventListener('vl:panes',applyZoom);
+  /* ResizeObserver does not fire in every host, and the pane can change width
+     without the window doing so (splitter drag, sidebar collapse, mode switch).
+     Watch the measured width directly — it costs one layout read per tick and
+     only recomputes when the number actually moves. */
+  var lastW=0,lastBody=0;
+  setInterval(function(){
+    var w=scrollEl.clientWidth,b=docBody.clientWidth;
+    if(w===lastW&&b===lastBody)return;
+    lastW=w;lastBody=b;applyZoom();
+  },220);
+
+  /* --- pagination for preview --- */
+  function clearSheets(){$$('.page.sheetview',layer).forEach(function(n){n.remove()})}
+  function newSheet(){
+    var p=document.createElement('article');
+    p.className='page sheetview';
+    layer.appendChild(p);
+    return p;
+  }
+  function buildPreview(){
+    clearSheets();
+    doc.style.display='none';
+    var clone=doc.cloneNode(true);
+    $$('.pending-bar',clone).forEach(function(n){n.remove()});
+    $$('.cit',clone).forEach(function(n){n.remove()});
+    var flat=[];
+    Array.prototype.forEach.call(clone.children,function(b){
+      if(b.classList.contains('pending')){
+        Array.prototype.forEach.call(b.children,function(x){flat.push(x)});
+      }else flat.push(b);
+    });
+    var limit=PAGE_H-MARGIN*2-FOOTZONE;
+    var sheet=newSheet(),used=0;
+    flat.forEach(function(b){
+      sheet.appendChild(b);
+      var cs=getComputedStyle(b);
+      var h=b.offsetHeight+(parseFloat(cs.marginTop)||0)+(parseFloat(cs.marginBottom)||0);
+      if(used+h>limit&&used>0){
+        sheet.removeChild(b);
+        sheet=newSheet();
+        sheet.appendChild(b);
+        used=h;
+      }else used+=h;
+    });
+    var sheets=$$('.page.sheetview',layer);
+    sheets.forEach(function(p,i){
+      var n=document.createElement('div');
+      n.className='pv-num';
+      n.textContent='Page '+(i+1)+' of '+sheets.length;
+      p.appendChild(n);
+    });
+    setPageCount(sheets.length);
+    zoomAfterLayout();
+  }
+  function teardownPreview(){clearSheets();doc.style.display='';estimatePages()}
+  function setPageCount(n){$('#page-count').textContent=n+(n===1?' page':' pages')}
+  function estimatePages(){
+    setPageCount(Math.max(1,Math.ceil(doc.offsetHeight/(PAGE_H-MARGIN*0))));
+  }
+
+  /* --- provenance --- */
+  var PROV=[
+    {cl:'1.7',ti:'Definition of “Capture”',srcs:['c2'],why:'Clause-bank definition, adopted verbatim.'},
+    {cl:'1.8',ti:'Definition of “Internal Replay”',srcs:[],why:'Attorney-drafted for this matter. No precedent used.'},
+    {cl:'6.1',ti:'Fee and expenses',srcs:['c3'],why:'Figures taken from the client rider; expense terms from the master template.'},
+    {cl:'7.1',ti:'Ownership of the Capture',srcs:['c1','c2'],why:'Northwind structure, clause-bank wording.'},
+    {cl:'7.2',ti:'Internal replay licence, ninety days',srcs:['c1'],why:'Northwind gave 120 days. Tightened to 90 on your instruction.'},
+    {cl:'7.3',ti:'No public distribution',srcs:['c2','c3'],why:'Clause-bank covenant, extended to sponsors because the rider requires it.'},
+    {cl:'7.4',ti:'Name and likeness for promotion',srcs:[],why:'Attorney-drafted. The 30-day tail is not in any precedent.'},
+    {cl:'8.2',ti:'Cancellation and force majeure',srcs:['c4'],why:'Clause-bank position, adopted verbatim.'}
+  ];
+  function buildProv(){
+    var wrap=$('#prov');
+    if(wrap.childElementCount)return;
+    wrap.innerHTML=PROV.map(function(p){
+      var body=p.srcs.length?p.srcs.map(function(id){
+        var s=SOURCES[id];
+        return '<div class="prov-src"><div class="sh"><span class="badge">'+s.badge+'</span>'+
+               '<span class="nm">'+s.title+'</span><span class="lc">'+s.loc+'</span></div>'+
+               '<q>'+s.quote+'</q></div>';
+      }).join(''):'<div class="prov-none">'+p.why+'</div>';
+      var note=p.srcs.length?'<div class="prov-none" style="border:none;padding-left:13px">'+p.why+'</div>':'';
+      return '<div class="prov-item" data-cl="'+p.cl+'"><div class="prov-head"><span class="cl">§ '+p.cl+
+             '</span><span class="ti">'+p.ti+'</span></div>'+body+note+'</div>';
+    }).join('');
+    $$('.prov-item',wrap).forEach(function(it){
+      it.addEventListener('click',function(){
+        lite(it.dataset.cl);
+        var sub=doc.querySelector('.sub[data-cl="'+it.dataset.cl+'"]');
+        if(sub)sub.scrollIntoView({block:'center',behavior:'smooth'});
+      });
+    });
+  }
+  function lite(cl){
+    $$('.sub[data-cl]',doc).forEach(function(s){s.classList.toggle('lit',s.dataset.cl===cl)});
+    $$('.prov-item').forEach(function(p){p.classList.toggle('lit',p.dataset.cl===cl)});
+  }
+  doc.addEventListener('click',function(e){
+    if(mode!=='sources')return;
+    var sub=e.target.closest('.sub[data-cl]');if(!sub)return;
+    lite(sub.dataset.cl);
+    var it=$('.prov-item[data-cl="'+sub.dataset.cl+'"]');
+    if(it)it.scrollIntoView({block:'nearest',behavior:'smooth'});
+  });
+  function markTraced(on){
+    $$('.sub[data-cl]',doc).forEach(function(s){
+      s.classList.toggle('traced',on);
+      if(!on)s.classList.remove('lit');
+    });
+    if(!on)$$('.prov-item').forEach(function(p){p.classList.remove('lit')});
+  }
+
+  /* --- mode switch --- */
+  function setMode(m){
+    mode=m;
+    $$('#modes .mode').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.mode===m))});
+    docCol.classList.remove('mode-edit','mode-preview','mode-sources');
+    docCol.classList.add('mode-'+m);
+    doc.contentEditable=m==='edit'?'true':'false';
+    $('#edit-tools').hidden=m!=='edit';
+    $('#view-note').hidden=m==='edit';
+    if(m==='preview'){
+      $('#view-note-text').textContent='Read-only — the exported layout, page for page.';
+      buildPreview();
+    }else{
+      teardownPreview();
+    }
+    if(m==='sources'){
+      $('#view-note-text').textContent='Read-only — select any clause to trace it.';
+      buildProv();markTraced(true);
+    }else markTraced(false);
+    zoomAfterLayout();
+  }
+  $$('#modes .mode').forEach(function(b){b.addEventListener('click',function(){setMode(b.dataset.mode)})});
+
+  /* --- full screen --- */
+  function toggleFs(force){
+    var on=force==null?!app.classList.contains('fs'):force;
+    app.classList.toggle('fs',on);
+    $('#fullscreen').setAttribute('aria-label',on?'Exit full screen':'Full screen');
+    setTimeout(function(){if(mode==='preview')buildPreview();zoomAfterLayout()},230);
+  }
+  $('#fullscreen').addEventListener('click',function(){toggleFs()});
+  window.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&app.classList.contains('fs')){toggleFs(false);return}
+    var t=e.target,editing=t&&(t.isContentEditable||t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.tagName==='SELECT');
+    if(editing||e.metaKey||e.ctrlKey||e.altKey)return;
+    if(e.key==='f'||e.key==='F'){e.preventDefault();toggleFs()}
+  });
+
+  docCol.classList.add('mode-edit');
+  doc.addEventListener('input',queueZoom);
+  estimatePages();zoomAfterLayout();
+
+  /* ---------- chat ---------- */
+  var thread=$('#thread'),input=$('#input'),sendBtn=$('#send');
+  var SPARK='<span class="spark"><svg viewBox="0 0 24 24"><path d="M12 2.5 13.8 9a4 4 0 0 0 2.7 2.7l6.5 1.8-6.5 1.8a4 4 0 0 0-2.7 2.7L12 24.5 10.2 18a4 4 0 0 0-2.7-2.7L1 13.5l6.5-1.8A4 4 0 0 0 10.2 9Z" transform="translate(0 -1) scale(.95) translate(.6 .6)"/></svg></span>';
+  var ARROW='<svg viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg>';
+  var SQUARE='<svg viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="1.5"/></svg>';
+
+  var REPLIES={
+    opt1:{think:'Read VL-REC-06 and the two agreements where it survived negotiation · 3 passages',
+      srcs:[['Clause','Promotional excerpt licence — three minutes, speaker approval','VL-REC-06'],
+            ['SharePt','Meridian Learning — Course Licensing Agreement','§ 4.2']],
+      blocks:['Added *§ 7.5* and the two definitions it depends on. The excerpt is drawn from footage Rebecca designates, not footage the host picks, and approval is required before first publication rather than after.',
+              'Two knock-on edits worth your eye: § 1.7 now excludes the approved excerpt from the Capture restrictions, and § 7.3 carries an express carve-out so the two clauses do not contradict each other.'],
+      note:'Inserted § 7.5 and amended § 1.7 and § 7.3, pending your review.'},
+    compare:{think:'Compared § 7 against five executed speaker agreements from the last eighteen months',
+      srcs:[['SharePt','Northwind Summit 2025, Keppler Bureau 2024, and three others','5 documents']],
+      blocks:['Your § 7 is *tighter than four of the five*. Replay runs 90 days where the firm norm is 120, and you have added a deletion certificate none of the others carry.',
+              'One thing the others have that this draft does not: an *attendee recording* clause. Four of the five put an express no-recording obligation on the host for attendee devices. Northwind § 8.4 is the cleanest version. Want it as § 7.6?'],
+      note:null},
+    risk:{think:'Read the host form agreement uploaded 22 Sep · 6 passages from 2 sources',
+      srcs:[['Upload','Cascade Health Summit — Host form agreement','§ 11, § 14'],
+            ['Clause','Sponsor adjacency — named exclusions','VL-SPN-03']],
+      blocks:['Three places their counsel will push, in the order I would expect them.',
+              '*Ninety days.* Their form says twelve months of on-demand access. Expect a counter at six. The deletion certificate is the part worth holding.',
+              '*Sole discretion in § 7.3.* Standard ask is to soften this to consent not unreasonably withheld. Our position memo says hold it for likeness, trade it for text quotes.',
+              '*Sponsor adjacency.* Their § 14 grants sponsors promotional use of “session content”, which reads onto the Capture. This draft has no Schedule B. That gap is the real one.'],
+      note:null},
+    generic:{think:'Searched 1,482 documents · 3 passages from 2 sources',
+      srcs:[['SharePt','Master template — Speaking Engagement Agreement v9','/Templates/Active'],
+            ['Clio','Whitfield — Standard Engagement Rider 2026','¶ 6']],
+      blocks:['Working from the v9 master template and Rebecca’s standing rider. I have drafted this against the firm’s preferred position rather than the host’s form, and flagged where the two diverge.',
+              'Tell me which section to place it in and I will insert it with the definition updates it needs.'],
+      note:'Draft ready — tell me where to place it.'}
+  };
+
+  function el(h){var d=document.createElement('div');d.innerHTML=h.trim();return d.firstChild}
+  function time(){var d=new Date();return d.getHours()+':'+String(d.getMinutes()).padStart(2,'0')}
+  function atBottom(){return thread.scrollHeight-thread.scrollTop-thread.clientHeight<90}
+  function follow(stick){if(stick)thread.scrollTop=thread.scrollHeight}
+  function fmt(t){
+    var s=t.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+    var open=(s.match(/\*/g)||[]).length%2===1;
+    if(open)s=s.replace(/\*([^*]*)$/,'$1');
+    return s.replace(/\*([^*]+)\*/g,'<b>$1</b>');
+  }
+
+  var run=null;
+  function setSending(on){
+    sendBtn.disabled=on?false:!input.value.trim();
+    sendBtn.classList.toggle('stop',on);
+    sendBtn.innerHTML=on?SQUARE:ARROW;
+    sendBtn.setAttribute('aria-label',on?'Stop':'Send');
+  }
+
+  function reply(key){
+    var r=REPLIES[key]||REPLIES.generic;
+    var turn=el('<div class="turn ai"><div class="ai-head">'+SPARK+'Drafting assistant</div>'+
+                '<div class="bubble"><div class="think live"><span class="tick">✦</span><span class="shimmer">Searching the knowledge base…</span></div></div></div>');
+    thread.appendChild(turn);thread.scrollTop=thread.scrollHeight;
+    var bubble=turn.querySelector('.bubble');
+    var job={cancelled:false};run=job;setSending(true);
+
+    setTimeout(function(){
+      if(job.cancelled)return finish(job,turn);
+      var ss=r.srcs.map(function(s){
+        return '<button class="src"><span class="badge">'+s[0]+'</span><span class="t">'+s[1]+'</span><span class="loc">'+s[2]+'</span></button>';
+      }).join('');
+      bubble.innerHTML='<details class="think"><summary><span class="tick">✦</span> '+r.think+
+        ' <span class="chev">›</span></summary><div class="think-body"><div class="src-list">'+ss+'</div></div></details>';
+      follow(true);
+      streamBlocks(job,turn,bubble,r,0);
+    },950);
+  }
+
+  function streamBlocks(job,turn,bubble,r,idx){
+    if(job.cancelled)return finish(job,turn);
+    if(idx>=r.blocks.length){
+      if(r.note){
+        bubble.appendChild(el('<div class="inserted-note"><span>'+r.note+'</span></div>'));
+        follow(atBottom());
+      }
+      if(r.note&&job.key==='opt1'){}
+      return finish(job,turn);
+    }
+    var words=r.blocks[idx].split(' '),i=0;
+    var p=document.createElement('p');bubble.appendChild(p);
+    (function tick(){
+      if(job.cancelled)return finish(job,turn);
+      var stick=atBottom();
+      i=Math.min(words.length,i+(1+Math.floor(Math.random()*2)));
+      var done=i>=words.length;
+      p.innerHTML=fmt(words.slice(0,i).join(' '))+(done?'':'<span class="caret"></span>');
+      follow(stick);
+      if(done)return setTimeout(function(){streamBlocks(job,turn,bubble,r,idx+1)},140);
+      setTimeout(tick,26+Math.random()*34);
+    })();
+  }
+
+  function finish(job,turn){
+    job.cancelled=true;
+    if(run===job)run=null;
+    var c=turn.querySelector('.caret');if(c)c.remove();
+    var live=turn.querySelector('.think.live');if(live)live.remove();
+    if(!turn.querySelector('.turn-acts')){
+      turn.appendChild(el('<div class="turn-acts"><button data-toast="Response copied.">Copy</button><button data-toast="Re-running against the same sources.">Retry</button></div>'));
+    }
+    setSending(false);
+  }
+
+  function send(text,key){
+    if(run){run.cancelled=true;return}
+    if(!text.trim())return;
+    thread.appendChild(el('<div class="turn user"><div class="bubble">'+text.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</div></div>'));
+    input.value='';autosize();thread.scrollTop=thread.scrollHeight;
+    if(key==='opt1'){
+      $('#doc-status').textContent='2 insertions awaiting review';
+      pending.classList.remove('settled');
+    }
+    reply(key);
+  }
+
+  function autosize(){input.style.height='auto';input.style.height=Math.min(input.scrollHeight,180)+'px'}
+  input.addEventListener('input',function(){autosize();if(!run)sendBtn.disabled=!input.value.trim()});
+  input.addEventListener('keydown',function(e){
+    if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send(input.value,'generic')}
+  });
+  sendBtn.addEventListener('click',function(){
+    if(run){run.cancelled=true;return}
+    send(input.value,'generic');
+  });
+  $$('#suggests .sug').forEach(function(b){
+    b.addEventListener('click',function(){if(run)return;send(b.textContent,b.dataset.q)});
+  });
+  autosize();
+})();
+</script>

@@ -1,0 +1,59 @@
+<title>Valle Legal Drafting Desk</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans:wght@400;450;500&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>
+:root{
+  --paper:oklch(98.5% .005 85);
+  --surface:oklch(97.4% .007 85);
+  --sheet:oklch(100% 0 0);
+  --ink:oklch(22% .04 260);
+  --ink-soft:oklch(40% .028 258);
+  --muted:oklch(56% .018 258);
+  --faint:oklch(68% .014 258);
+  --brand:oklch(28% .055 258);
+  --brand-fg:oklch(98.5% .005 85);
+  --tint:oklch(96% .01 258);
+  --gold:oklch(70% .1 78);
+  --risk:oklch(52% .17 27);
+  --line:oklch(92% .008 258);
+  --line-soft:oklch(94.5% .006 258);
+  --line-strong:oklch(87% .012 258);
+  --hover:oklch(95.5% .009 258);
+  --sel:oklch(91.5% .017 258);
+  --ring:oklch(90% .02 258);
+  --well:oklch(96.5% .006 85);
+  --gold-wash:oklch(95.5% .035 82);
+  --sans:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
+  --serif:"Libre Baskerville",ui-serif,Georgia,serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:oklch(19.5% .02 258);--surface:oklch(21.5% .02 258);--sheet:oklch(23.5% .02 258);
+    --ink:oklch(94% .008 85);--ink-soft:oklch(83% .012 258);--muted:oklch(68% .015 258);--faint:oklch(55% .015 258);
+    --brand:oklch(78% .06 258);--brand-fg:oklch(18% .03 258);--tint:oklch(24% .024 258);
+    --gold:oklch(80% .1 80);--risk:oklch(72% .15 27);
+    --line:oklch(29% .016 258);--line-soft:oklch(25.5% .014 258);
+    --line-strong:oklch(34% .02 258);--hover:oklch(25% .022 258);--sel:oklch(30% .03 258);--ring:oklch(28% .028 258);--well:oklch(17.5% .018 258);--gold-wash:oklch(28% .045 78);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:oklch(19.5% .02 258);--surface:oklch(21.5% .02 258);--sheet:oklch(23.5% .02 258);
+  --ink:oklch(94% .008 85);--ink-soft:oklch(83% .012 258);--muted:oklch(68% .015 258);--faint:oklch(55% .015 258);
+  --brand:oklch(78% .06 258);--brand-fg:oklch(18% .03 258);--tint:oklch(24% .024 258);
+  --gold:oklch(80% .1 80);--risk:oklch(72% .15 27);
+  --line:oklch(29% .016 258);--line-soft:oklch(25.5% .014 258);
+    --line-strong:oklch(34% .02 258);--hover:oklch(25% .022 258);--sel:oklch(30% .03 258);--ring:oklch(28% .028 258);--well:oklch(17.5% .018 258);--gold-wash:oklch(28% .045 78);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:none;padding:0;text-align:left}
+:focus-visible{outline:1.5px solid var(--gold);outline-offset:3px;border-radius:2px}
+h1,h2,h3{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance;letter-spacing:-.012em}
+p{margin:0}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:.92em}
+.eyebrow{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
+.muted{color:var(--muted)}
+

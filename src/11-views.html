@@ -1,0 +1,232 @@
+    <!-- DOCUMENTS -->
+    <section class="view pad" id="view-docs">
+      <div class="vh">
+        <div>
+          <h2>Documents</h2>
+          <p>Every document generated on this desk, with the matter it belongs to and where it has been filed. Opening one loads it into the editor with its drafting history.</p>
+        </div>
+        <button class="link" data-toast="New blank document created in matter 2026-0188.">New document</button>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><span class="n">37</span><span class="k">Generated</span><span class="s">Across 12 matters</span></div>
+        <div class="stat"><span class="n">6</span><span class="k">Awaiting review</span><span class="s">Insertions not yet accepted</span></div>
+        <div class="stat"><span class="n">24</span><span class="k">Filed to Clio</span><span class="s">With matching time entries</span></div>
+        <div class="stat"><span class="n">9</span><span class="k">Executed</span><span class="s">Moved to the precedent library</span></div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-head">
+          <h3>All documents</h3>
+          <div class="filters" id="doc-filters">
+            <button class="filt" data-f="all" aria-pressed="true">All</button>
+            <button class="filt" data-f="draft" aria-pressed="false">Drafts</button>
+            <button class="filt" data-f="review" aria-pressed="false">In review</button>
+            <button class="filt" data-f="final" aria-pressed="false">Final</button>
+          </div>
+          <div class="search"><input id="doc-search" type="search" placeholder="Search documents…"></div>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Document</th><th>Matter</th><th>Type</th><th>Version</th><th>Updated</th><th>Status</th><th>Filed</th><th></th></tr></thead>
+            <tbody id="doc-body">
+              <tr data-f="review"><td><div class="name">Speaking Engagement Agreement — Cascade Health Summit</div><div class="sub2">Drafted with assistant · 4 sessions</div></td><td class="num">2026-0188</td><td>Agreement</td><td class="num">v3</td><td class="num">Today 9:27</td><td class="st"><span class="gold">1 insertion pending</span></td><td>SharePoint</td><td><button class="link quiet" data-open="current">Open</button></td></tr>
+              <tr data-f="draft"><td><div class="name">Engagement letter — Whitfield Speaks LLC 2026</div><div class="sub2">From firm template v4</div></td><td class="num">2026-0188</td><td>Engagement letter</td><td class="num">v2</td><td class="num">24 Sep</td><td class="st">Draft</td><td>SharePoint · Clio</td><td><button class="link quiet" data-toast="Loading engagement letter v2 into the editor.">Open</button></td></tr>
+              <tr data-f="review"><td><div class="name">Bureau representation agreement — renewal</div><div class="sub2">Redlined against 2024 form</div></td><td class="num">2026-0140</td><td>Agreement</td><td class="num">v5</td><td class="num">23 Sep</td><td class="st"><span class="gold">With client</span></td><td>Clio</td><td><button class="link quiet" data-toast="Loading bureau renewal v5 into the editor.">Open</button></td></tr>
+              <tr data-f="draft"><td><div class="name">Course licensing agreement — Meridian Learning</div><div class="sub2">Schedule B outstanding</div></td><td class="num">2026-0163</td><td>Licence</td><td class="num">v1</td><td class="num">22 Sep</td><td class="st">Draft</td><td>—</td><td><button class="link quiet" data-toast="Loading Meridian licence v1 into the editor.">Open</button></td></tr>
+              <tr data-f="final"><td><div class="name">Speaker rider — sponsor adjacency schedule</div><div class="sub2">Approved by M. Valle</div></td><td class="num">2026-0140</td><td>Rider</td><td class="num">v3</td><td class="num">19 Sep</td><td class="st">Final</td><td>SharePoint · Clio</td><td><button class="link quiet" data-toast="Loading sponsor adjacency rider v3 into the editor.">Open</button></td></tr>
+              <tr data-f="final"><td><div class="name">Mutual NDA — Cascade Health Summit</div><div class="sub2">Executed 8 Sep 2026</div></td><td class="num">2026-0188</td><td>NDA</td><td class="num">v2</td><td class="num">8 Sep</td><td class="st">Executed</td><td>SharePoint</td><td><button class="link quiet" data-toast="Executed documents open read-only.">Open</button></td></tr>
+              <tr data-f="draft"><td><div class="name">Demand letter — unauthorised keynote recording</div><div class="sub2">Assistant draft, not yet reviewed</div></td><td class="num">2026-0121</td><td>Correspondence</td><td class="num">v1</td><td class="num">17 Sep</td><td class="st"><span class="gold">3 insertions pending</span></td><td>—</td><td><button class="link quiet" data-toast="Loading demand letter v1 into the editor.">Open</button></td></tr>
+              <tr data-f="final"><td><div class="name">Trademark application cover — &ldquo;The Quiet Room&rdquo;</div><div class="sub2">Filed with USPTO</div></td><td class="num">2026-0121</td><td>Filing</td><td class="num">v1</td><td class="num">12 Sep</td><td class="st">Final</td><td>Clio</td><td><button class="link quiet" data-toast="Filed documents open read-only.">Open</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <p class="note"><b>Versions are kept where the document lives.</b> Saving to SharePoint writes a new version against the same item rather than a new file, so the firm&rsquo;s existing version history, retention policy, and audit trail keep working unchanged.</p>
+    </section>
+    <!-- KNOWLEDGE BASE -->
+    <section class="view pad" id="view-kb">
+      <div class="vh">
+        <div>
+          <h2>Knowledge base</h2>
+          <p>Everything the drafting assistant is allowed to read. Retrieval is permission-trimmed, so a draft never cites a document the drafter could not open themselves.</p>
+        </div>
+        <button class="link" data-toast="Re-index queued. Six files ahead of yours.">Re-index now</button>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><span class="n">1,104</span><span class="k">SharePoint</span><span class="s">7 libraries · crawled 9:23</span></div>
+        <div class="stat"><span class="n">318</span><span class="k">Clio Manage</span><span class="s">42 open matters · crawled 9:16</span></div>
+        <div class="stat"><span class="n">60</span><span class="k">Direct uploads</span><span class="s">6 indexing, about 2 minutes</span></div>
+        <div class="stat"><span class="n">3</span><span class="k">Excluded by policy</span><span class="s">Ethical walls and one no-AI client</span></div>
+      </div>
+
+      <div class="sec">
+        <div class="sec-head">
+          <h3>Indexed documents</h3>
+          <div class="filters" id="kb-filters">
+            <button class="filt" data-f="all" aria-pressed="true">All</button>
+            <button class="filt" data-f="sp" aria-pressed="false">SharePoint</button>
+            <button class="filt" data-f="clio" aria-pressed="false">Clio</button>
+            <button class="filt" data-f="up" aria-pressed="false">Uploads</button>
+          </div>
+          <div class="search"><input id="kb-search" type="search" placeholder="Search titles, matters, clause text…"></div>
+        </div>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Document</th><th>Source</th><th>Matter</th><th>Type</th><th>Indexed</th><th>Handling</th></tr></thead>
+            <tbody id="kb-body">
+              <tr data-f="sp"><td><div class="name">Northwind Summit — Speaking Agreement (executed)</div><div class="sub2">/Precedents/Speaker Agreements/2025</div></td><td>SharePoint</td><td class="num">2025-0642</td><td>Executed agreement</td><td class="num">12 Sep</td><td class="st">Precedent</td></tr>
+              <tr data-f="clio"><td><div class="name">Whitfield — Standard Engagement Rider 2026</div><div class="sub2">Clio · Documents · Whitfield Speaks LLC</div></td><td>Clio</td><td class="num">2026-0188</td><td>Rider</td><td class="num">14 Sep</td><td class="st">Client paper</td></tr>
+              <tr data-f="up"><td><div class="name">Cascade Health Summit — Host form agreement</div><div class="sub2">Uploaded by R. Tanaka</div></td><td>Upload</td><td class="num">2026-0188</td><td>Counterparty form</td><td class="num">22 Sep</td><td class="st"><span class="gold">Unvetted</span></td></tr>
+              <tr data-f="sp"><td><div class="name">Recording and likeness — firm position memo</div><div class="sub2">/Knowledge/Memos/Media rights</div></td><td>SharePoint</td><td>—</td><td>Internal memo</td><td class="num">3 Aug</td><td class="st">Firm guidance</td></tr>
+              <tr data-f="sp"><td><div class="name">Bureau agreement — Keppler Speakers (2024 form)</div><div class="sub2">/Precedents/Bureau/Keppler</div></td><td>SharePoint</td><td class="num">2024-0311</td><td>Executed agreement</td><td class="num">28 Jul</td><td class="st">Precedent</td></tr>
+              <tr data-f="clio"><td><div class="name">Ortega v. Halloran Media — settlement terms</div><div class="sub2">Clio · Matter notes · restricted</div></td><td>Clio</td><td class="num">2025-0907</td><td>Settlement</td><td class="num">—</td><td class="st"><span class="risk">Walled off</span></td></tr>
+              <tr data-f="up"><td><div class="name">Sponsorship adjacency — client redlines, three rounds</div><div class="sub2">Uploaded by D. Okafor</div></td><td>Upload</td><td class="num">2026-0140</td><td>Redline history</td><td class="num">19 Sep</td><td class="st">Client paper</td></tr>
+              <tr data-f="sp"><td><div class="name">Master template — Speaking Engagement Agreement v9</div><div class="sub2">/Templates/Active</div></td><td>SharePoint</td><td>—</td><td>Firm template</td><td class="num">1 Sep</td><td class="st">Authoritative</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <p class="note"><b>Retrieval is permission-trimmed.</b> A passage is only returned if the signed-in attorney has read access to the underlying SharePoint item or Clio matter. Walled matters never enter the index at all, so they cannot surface through a prompt.</p>
+    </section>
+
+    <!-- MATTERS -->
+    <section class="view pad" id="view-matters">
+      <div class="vh">
+        <div>
+          <h2>Matters</h2>
+          <p>Synced from Clio Manage. Selecting a matter scopes every retrieval, citation, and file-back action to that matter&rsquo;s documents.</p>
+        </div>
+        <button class="link" data-toast="Pulled 42 matters from Clio. Two updated.">Sync from Clio</button>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Matter</th><th>Client</th><th>Responsible</th><th>Drafts</th><th>Next date</th><th>Status</th><th></th></tr></thead>
+          <tbody>
+            <tr><td><div class="name">Keynote Engagement — Cascade Health Summit</div><div class="sub2">2026-0188 · Speaking engagements</div></td><td>Whitfield Speaks LLC</td><td>M. Valle</td><td class="num">2</td><td class="num">14 Apr 2026</td><td class="st"><span class="gold">Active draft</span></td><td><button class="link quiet" data-view-jump="draft">Open</button></td></tr>
+            <tr><td><div class="name">Bureau representation renewal</div><div class="sub2">2026-0140 · Representation</div></td><td>Whitfield Speaks LLC</td><td>D. Okafor</td><td class="num">1</td><td class="num">30 Oct 2026</td><td class="st">Awaiting client</td><td><button class="link quiet" data-toast="Opening 2026-0140 would swap the drafting context.">Open</button></td></tr>
+            <tr><td><div class="name">Course licensing — Meridian Learning</div><div class="sub2">2026-0163 · IP licensing</div></td><td>Jordan Amaya</td><td>M. Valle</td><td class="num">3</td><td class="num">7 Nov 2026</td><td class="st"><span class="gold">Active draft</span></td><td><button class="link quiet" data-toast="Opening 2026-0163 would swap the drafting context.">Open</button></td></tr>
+            <tr><td><div class="name">Trademark — &ldquo;The Quiet Room&rdquo; word mark</div><div class="sub2">2026-0121 · Trademark</div></td><td>Priya Raghavan</td><td>D. Okafor</td><td class="num">0</td><td class="num">2 Dec 2026</td><td class="st">Filed</td><td><button class="link quiet" data-toast="No open drafts on 2026-0121.">Open</button></td></tr>
+            <tr><td><div class="name">Ortega v. Halloran Media</div><div class="sub2">2025-0907 · Litigation</div></td><td>Confidential</td><td>M. Valle</td><td class="num">—</td><td class="num">—</td><td class="st"><span class="risk">Ethical wall</span></td><td><span class="sub2">Restricted</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- CLAUSE BANK -->
+    <section class="view pad" id="view-clauses">
+      <div class="vh">
+        <div>
+          <h2>Clause bank</h2>
+          <p>Approved language with a stated posture. The assistant prefers these over precedent text, and names the clause code in the citation whenever it uses one.</p>
+        </div>
+        <button class="link" data-toast="Draft clause created. It stays unapproved until a partner signs off.">New clause</button>
+      </div>
+      <div class="clist">
+        <div class="crow">
+          <div class="code">VL-REC-04</div>
+          <h4>Recording and likeness — speaker-retained, replay carve-out</h4>
+          <div class="body">All right, title, and interest in the Capture vests in the Speaker upon creation. The Host acquires no ownership interest…</div>
+          <div class="meta"><b>Preferred</b>Used 31× · M. Valle, 4 Mar 2026</div>
+        </div>
+        <div class="crow">
+          <div class="code">VL-REC-06</div>
+          <h4>Promotional excerpt licence — three minutes, speaker approval</h4>
+          <div class="body">Host may publish a single excerpt of no more than three (3) minutes, drawn from footage designated by the Speaker and approved in writing prior to release…</div>
+          <div class="meta"><b>Fallback</b>Used 9× · M. Valle, 4 Mar 2026</div>
+        </div>
+        <div class="crow">
+          <div class="code">VL-FM-02</div>
+          <h4>Force majeure — speaker illness, substitute date</h4>
+          <div class="body">If the Speaker cancels due to illness, injury, or a death in the immediate family, the Speaker shall use reasonable efforts to propose a mutually acceptable substitute date…</div>
+          <div class="meta"><b>Preferred</b>Used 57× · D. Okafor, 11 Jan 2026</div>
+        </div>
+        <div class="crow">
+          <div class="code">VL-IND-01</div>
+          <h4>Indemnity — mutual, capped at the fee</h4>
+          <div class="body">Each party shall indemnify the other against third-party claims arising from its own negligence or wilful misconduct, provided that aggregate liability shall not exceed the Fee…</div>
+          <div class="meta"><b>Preferred</b>Used 44× · M. Valle, 9 Feb 2026</div>
+        </div>
+        <div class="crow">
+          <div class="code">VL-SPN-03</div>
+          <h4>Sponsor adjacency — named exclusions</h4>
+          <div class="body">The Host shall not place the Speaker&rsquo;s name, likeness, or session adjacent to any sponsor in the categories listed at Schedule B without prior written consent…</div>
+          <div class="meta"><b>Negotiated</b>Used 12× · under review</div>
+        </div>
+        <div class="crow">
+          <div class="code">VL-ARB-05</div>
+          <h4>Dispute resolution — mediation first, then AAA</h4>
+          <div class="body">The parties shall attempt in good faith to resolve any dispute by mediation in Multnomah County, Oregon, before commencing arbitration under the Commercial Rules…</div>
+          <div class="meta"><b>Retired</b>Superseded by VL-ARB-07</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONNECTIONS -->
+    <section class="view pad" id="view-conn">
+      <div class="vh">
+        <div>
+          <h2>Connections</h2>
+          <p>Two systems of record and one index. Documents are read where they live and written back with the firm&rsquo;s own naming convention, so nothing becomes a second copy nobody trusts.</p>
+        </div>
+      </div>
+
+      <div class="two">
+        <div class="conn">
+          <h3>Microsoft SharePoint</h3>
+          <div class="state"><i></i>Connected · delta sync every 15 minutes</div>
+          <dl class="kv">
+            <dt>Tenant</dt><dd class="mono">vallelegal.sharepoint.com</dd>
+            <dt>Site</dt><dd class="mono">/sites/VL-Practice</dd>
+            <dt>Libraries</dt><dd>Precedents, Templates, Matters, Knowledge, Executed, Bureau, Archive</dd>
+            <dt>Auth</dt><dd>Entra ID, delegated — permissions follow the signed-in attorney</dd>
+            <dt>Scopes</dt><dd class="mono">Sites.Selected · Files.ReadWrite</dd>
+            <dt>Write-back</dt><dd class="mono">/Matters/{matter}/Drafts/{doc}-v{n}.docx</dd>
+          </dl>
+          <div class="log">
+            <div class="log-row"><span class="when">9:23</span><span>Delta crawl — 4 items changed, 4 re-embedded</span></div>
+            <div class="log-row"><span class="when">9:08</span><span>Wrote Cascade Health Summit v3 to /Matters/2026-0188/Drafts</span></div>
+            <div class="log-row"><span class="when">8:53</span><span>Skipped 3 items — attorney lacks read access</span></div>
+          </div>
+          <div class="conn-foot">
+            <button class="link" data-sync="sp">Sync now</button>
+            <button class="link quiet" data-toast="Library mapping opens the folder picker.">Edit mapping</button>
+            <span class="mono" id="sp-foot">Last sync 9:23</span>
+          </div>
+        </div>
+
+        <div class="conn">
+          <h3>Clio Manage</h3>
+          <div class="state"><i></i>Connected · OAuth refreshed nightly</div>
+          <dl class="kv">
+            <dt>Region</dt><dd class="mono">app.clio.com · US</dd>
+            <dt>Firm</dt><dd>Valle Legal PC — 42 open matters, 118 contacts</dd>
+            <dt>Reads</dt><dd>Matters, contacts, documents, notes, custom fields</dd>
+            <dt>Writes</dt><dd>Filed drafts, matter notes, and a time entry per drafting session</dd>
+            <dt>Scopes</dt><dd class="mono">matters:read · documents:write · activities:write</dd>
+            <dt>Webhooks</dt><dd class="mono">matter.updated</dd>
+          </dl>
+          <div class="log">
+            <div class="log-row"><span class="when">9:16</span><span>Pulled 42 matters — 2 updated, 1 new contact</span></div>
+            <div class="log-row"><span class="when">9:09</span><span>Logged 0.3 h to 2026-0188, drafting § 7</span></div>
+            <div class="log-row"><span class="when">8:40</span><span>Matter 2025-0907 flagged restricted, excluded from index</span></div>
+          </div>
+          <div class="conn-foot">
+            <button class="link" data-sync="clio">Sync now</button>
+            <button class="link quiet" data-toast="Time-entry defaults open in settings.">Time entries</button>
+            <span class="mono" id="clio-foot">Last sync 9:16</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="note"><b>Data handling.</b> Documents are processed in the firm&rsquo;s tenant region, retained for the life of the matter, and excluded from model training. Walled matters and clients whose engagement letter forbids automated processing are removed from the index at source, not filtered at query time.</p>
+    </section>
+
+  </main>
+</div>
+
+<div class="pop" id="pop" role="dialog" aria-label="Source detail"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
