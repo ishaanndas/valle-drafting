@@ -98,8 +98,8 @@
 
   /* ---------- citations ---------- */
   var SOURCES={
-    c1:{badge:'SharePoint',title:'Northwind Summit — Speaking Agreement (executed)',loc:'§ 8.1–8.4',
-        path:'/sites/VL-Practice/Precedents/Speaker Agreements/2025',meta:'Matter 2025-0642 · executed 3 Nov 2025 · indexed 12 Sep',
+    c1:{badge:'Dropbox',title:'Northwind Summit — Speaking Agreement (executed)',loc:'§ 8.1–8.4',
+        path:'/Valle Legal/Precedents/Speaker Agreements/2025',meta:'Matter 2025-0642 · executed 3 Nov 2025 · indexed 12 Sep',
         quote:'All right, title and interest in any recording of the Presentation shall vest in the Speaker. The Host shall be granted access for internal replay for a period of one hundred twenty (120) days…'},
     c2:{badge:'Clause bank',title:'Recording and likeness — speaker-retained, replay carve-out',loc:'VL-REC-04',
         path:'Firm clause bank · preferred position',meta:'Approved M. Valle, 4 Mar 2026 · used in 31 agreements',
@@ -136,7 +136,7 @@
   $('#accept-ins').addEventListener('click',function(){
     pending.classList.add('settled');
     $('#doc-status').textContent='all insertions reviewed';
-    toast('§ 7 accepted. Version 4 saved to SharePoint.');
+    toast('§ 7 accepted. Version 4 saved to Dropbox.');
   });
   $('#revise-ins').addEventListener('click',function(){
     var i=$('#input');i.value='Revise § 7 — ';i.focus();i.setSelectionRange(i.value.length,i.value.length);
@@ -162,6 +162,7 @@
   }
   wireTable('kb-filters','kb-search','kb-body');
   wireTable('doc-filters','doc-search','doc-body');
+  wireTable('ex-filters','ex-search','ex-body');
 
   /* ---------- sync ---------- */
   function nowStr(){var d=new Date();return d.getHours()+':'+String(d.getMinutes()).padStart(2,'0')}
@@ -172,7 +173,7 @@
       setTimeout(function(){
         b.textContent=old;
         $('#'+k+'-foot').textContent='Last sync '+t;
-        toast(k==='sp'?'SharePoint delta crawl complete. Two items re-embedded.':'Clio sync complete. 42 matters, no conflicts.');
+        toast(k==='sp'?'Dropbox delta sync complete. Two items re-embedded.':'Clio sync complete. 42 matters, no conflicts.');
       },900);
     });
   });

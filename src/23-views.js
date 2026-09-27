@@ -185,3 +185,17 @@
   doc.addEventListener('input',queueZoom);
   estimatePages();zoomAfterLayout();
 
+  /* Deep links: ?view=clauses&mode=sources&rail=closed&chat=440&fs=1
+     Lets a section be linked to directly, and drives screenshot capture. */
+  (function deepLink(){
+    var q=new URLSearchParams(location.search);
+    var v=q.get('view');
+    if(v&&$('#view-'+v))show(v);
+    var c=parseInt(q.get('chat'),10);
+    if(c)$('#view-draft').style.setProperty('--chat-w',c+'px');
+    if(q.get('rail')==='closed')setCollapsed(true);
+    var m=q.get('mode');
+    if(m&&['edit','preview','sources'].indexOf(m)>-1)setMode(m);
+    if(q.get('fs')==='1')toggleFs(true);
+    zoomAfterLayout();
+  })();

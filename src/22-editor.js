@@ -60,7 +60,7 @@
 
   function saveDoc(){
     dirty=false;saveState.textContent='Saved '+nowStr();
-    toast('Saved to /Matters/2026-0188/Drafts as v4.');
+    toast('Saved to /Valle Legal/Matters/2026-0188/Drafts as v4.');
   }
   $('#save-doc').addEventListener('click',saveDoc);
 
